@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# Environments
+venv/
+.venv/
+env/
+.env
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
+# Vector store and graph artifacts (regenerate with create_database.py / build-graphs)
+data/chroma/
+rag/graph/*.pkl
+
+# Large evaluation artifacts (archived separately; see README)
+data/benchmark_results*.jsonl
+data/benchmark_judgements.jsonl
+data/generated_questions_raw.jsonl
