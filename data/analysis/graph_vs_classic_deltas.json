@@ -1,0 +1,443 @@
+[
+  {
+    "item_id": "p-Faks-cyberbot-backend-merged-pdf-batch5-cybersecurity-tips-for-nd-citizens-pdf-a",
+    "question": "Why is it important to ensure online safety in today's world?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.262,
+    "rag_classic_factual_correctness_ratio": 0.142,
+    "delta": 0.12
+  },
+  {
+    "item_id": "erbot-backend-merged-pdf-batch3-Exposure-to-Inappropriate-Content-TG-updated-pdf-a",
+    "question": "What responsibility do teachers have regarding children's internet activities?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.279,
+    "rag_classic_factual_correctness_ratio": 0.161,
+    "delta": 0.117
+  },
+  {
+    "item_id": "ot-backend-merged-pdf-batch4-ORS-Cybersecurity-Best-Practices-2019-digitalv2-pdf-a",
+    "question": "What is the purpose of a Demilitarized Zone (DMZ) in computing?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.435,
+    "rag_classic_factual_correctness_ratio": 0.323,
+    "delta": 0.112
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-cybersecurity-booklet-pdf-a",
+    "question": "Why is it recommended to read your email on an account with restricted privileges?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.31,
+    "rag_classic_factual_correctness_ratio": 0.204,
+    "delta": 0.107
+  },
+  {
+    "item_id": "arko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-CYBER-SECURITY-R18A0521-pdf-a",
+    "question": "What is the title of the book authored by B.B. Gupta, D.P. Agrawal, and Haoxiang Wang?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.083,
+    "rag_classic_factual_correctness_ratio": 0.0,
+    "delta": 0.083
+  },
+  {
+    "item_id": "s-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch1-WEB-Anglisna-Verzija-pdf-a",
+    "question": "What is the common perception of HTTPS among students?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.324,
+    "rag_classic_factual_correctness_ratio": 0.254,
+    "delta": 0.07
+  },
+  {
+    "item_id": "op-Faks-cyberbot-backend-merged-pdf-batch4-Vodich-za-sajber-bezbednost-PRINT-pdf-a",
+    "question": "Што треба да направат децата ако преземат несоодветни содржини од интернет?",
+    "difficulty": "easy",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.231,
+    "rag_classic_factual_correctness_ratio": 0.161,
+    "delta": 0.07
+  },
+  {
+    "item_id": "erged-pdf-batch4-The-Complete-Guide-To-Starting-Your-Career-in-Cybersecurity-pdf-a",
+    "question": "What kind of support does WVJC Online offer to students pursuing a career in cybersecurity?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.518,
+    "rag_classic_factual_correctness_ratio": 0.451,
+    "delta": 0.067
+  },
+  {
+    "item_id": "pdf-batch1-English-Cybersecurity-Handbook-for-Civil-Society-Organizations-0-pdf-a",
+    "question": "What is a common tactic used by phishers to trick people with email addresses?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.176,
+    "rag_classic_factual_correctness_ratio": 0.113,
+    "delta": 0.063
+  },
+  {
+    "item_id": "ers-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch3-Infographic-Series-pdf-a",
+    "question": "What is the purpose of using a strong password for your Wi-Fi network?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.233,
+    "rag_classic_factual_correctness_ratio": 0.174,
+    "delta": 0.059
+  },
+  {
+    "item_id": "ers-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch4-nist-cybersecurity-pdf-a",
+    "question": "What is a key step toward effective Asset Management according to the document?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.107,
+    "rag_classic_factual_correctness_ratio": 0.051,
+    "delta": 0.056
+  },
+  {
+    "item_id": "Faks-cyberbot-backend-merged-pdf-batch4-Prirachnik-za-bezbednost-na-internet-pdf-a",
+    "question": "Зошто е важно да постојат посебни правни прописи за заштита на малолетните лица на интернет?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.261,
+    "rag_classic_factual_correctness_ratio": 0.217,
+    "delta": 0.043
+  },
+  {
+    "item_id": "Faks-cyberbot-backend-merged-pdf-batch1-ACT-Digital-Security-Guidelines-2019-pdf-a",
+    "question": "Why should you avoid installing unknown and unverified programs on your phone?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.38,
+    "rag_classic_factual_correctness_ratio": 0.339,
+    "delta": 0.042
+  },
+  {
+    "item_id": "sers-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch3-flwp-2024-4-final-pdf-a",
+    "question": "What was the second objective of the study mentioned in the document?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.123,
+    "rag_classic_factual_correctness_ratio": 0.083,
+    "delta": 0.04
+  },
+  {
+    "item_id": "ko-Desktop-Faks-cyberbot-backend-merged-pdf-batch6-2023-2027-id-69-version-1-pdf-a",
+    "question": "Зошто е важно Владата да настапи со превентивни мерки во случај на кризи?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.158,
+    "rag_classic_factual_correctness_ratio": 0.119,
+    "delta": 0.039
+  },
+  {
+    "item_id": "Faks-cyberbot-backend-merged-pdf-batch5-Cybersecurity-Guide-G-CSBP-07-22-web-pdf-a",
+    "question": "What are some examples of lapses in physical security that can lead to identity theft?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.221,
+    "rag_classic_factual_correctness_ratio": 0.189,
+    "delta": 0.032
+  },
+  {
+    "item_id": "backend-merged-pdf-batch4-NIST-Control-Systems-Tips-and-Tactics-Infographic-pdf-a",
+    "question": "What should be done to user accounts when someone leaves the organization?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.222,
+    "rag_classic_factual_correctness_ratio": 0.192,
+    "delta": 0.03
+  },
+  {
+    "item_id": "Users-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch4-nist-sp-800-61r2-pdf-a",
+    "question": "What are some common sources of precursors and indicators in computer security?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.124,
+    "rag_classic_factual_correctness_ratio": 0.101,
+    "delta": 0.024
+  },
+  {
+    "item_id": "Faks-cyberbot-backend-merged-pdf-batch4-Strategija-za-sajber-odbrana-mk-1-1-pdf-a",
+    "question": "Кои се трите главни теми опфатени во документот?",
+    "difficulty": "hard",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.058,
+    "rag_classic_factual_correctness_ratio": 0.035,
+    "delta": 0.023
+  },
+  {
+    "item_id": "Users-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-cyberbusiness-hr-pdf-a",
+    "question": "What is one way to prevent unauthorized access to a computer system?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.021,
+    "rag_classic_factual_correctness_ratio": 0.0,
+    "delta": 0.021
+  },
+  {
+    "item_id": "Users-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch4-NIST-IR-8546-ipd-pdf-a",
+    "question": "Why is it important to prioritize suppliers by their criticality in semiconductor manufacturing?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.304,
+    "rag_classic_factual_correctness_ratio": 0.288,
+    "delta": 0.016
+  },
+  {
+    "item_id": "nd-merged-pdf-batch4-Research-on-Cyberbullying-in-North-Macedonia-and-Serbia-pdf-a",
+    "question": "What is the maximum imprisonment for unauthorized tapping and audio recording according to the Criminal Code in Serbia?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.266,
+    "rag_classic_factual_correctness_ratio": 0.255,
+    "delta": 0.01
+  },
+  {
+    "item_id": "kend-merged-pdf-batch1-BCG-Executive-Perspectives-CEO-Guide-to-Cybersecurity-pdf-a",
+    "question": "What is the estimated cost of cybercrime by the end of 2021?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.005,
+    "rag_classic_factual_correctness_ratio": 0.0,
+    "delta": 0.005
+  },
+  {
+    "item_id": "s-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch5-Online-nasilstvo-MKD-pdf-a",
+    "question": "Кои се некои од формите на онлајн вознемирување споменати во текстот?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.309,
+    "rag_classic_factual_correctness_ratio": 0.308,
+    "delta": 0.001
+  },
+  {
+    "item_id": "Desktop-Faks-cyberbot-backend-merged-pdf-batch3-English-Sophie-Card-Game-PDF-pdf-a",
+    "question": "What should you do if you discover your child receives pornographic images through WhatsApp?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.246,
+    "rag_classic_factual_correctness_ratio": 0.245,
+    "delta": 0.001
+  },
+  {
+    "item_id": "top-Faks-cyberbot-backend-merged-pdf-batch4-PPT-SAJBER-BEZBEDNOST-repository-pdf-a",
+    "question": "Кои се придобивките и опасностите од интернетот?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.0,
+    "rag_classic_factual_correctness_ratio": 0.0,
+    "delta": 0.0
+  },
+  {
+    "item_id": "CEF-Global-Insight-Rapid-Analysis-Protecting-Children-in-Cyberconflicts-2022-pdf-a",
+    "question": "What organization published a report titled 'The potential human cost of cyber operations' in 2019?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.29,
+    "rag_classic_factual_correctness_ratio": 0.296,
+    "delta": -0.007
+  },
+  {
+    "item_id": "ers-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch5-nasoki-za-roditeli-pdf-a",
+    "question": "Кои се некои од долгорочните последици кои може да се јават кај жртвата и сторителот на насилство?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.774,
+    "rag_classic_factual_correctness_ratio": 0.782,
+    "delta": -0.008
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch1-WEB-MAKEDONSKA-Verzija-pdf-a",
+    "question": "Кој е главниот мотиватор за споделување на социјалните мрежи според истражувачите?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.0,
+    "rag_classic_factual_correctness_ratio": 0.014,
+    "delta": -0.014
+  },
+  {
+    "item_id": "our-Rights-A-Guide-to-Childrens-European-Rights-to-Online-Privacy-and-Safety-pdf-a",
+    "question": "What must companies do to protect personal data under the GDPR?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.416,
+    "rag_classic_factual_correctness_ratio": 0.435,
+    "delta": -0.019
+  },
+  {
+    "item_id": "df-batch4-Slicksheet-BestPracticesForKeepingYourHomeNetworkSecure-Web-update-pdf-a",
+    "question": "What is the purpose of implementing Full Disk Encryption (FDE) on laptops?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.27,
+    "rag_classic_factual_correctness_ratio": 0.297,
+    "delta": -0.027
+  },
+  {
+    "item_id": "0828-safecom-guide-getting-started-cybersecurity-assessment-2022-final-508C-pdf-a",
+    "question": "What are some common indicators of a cyber breach according to the text?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.144,
+    "rag_classic_factual_correctness_ratio": 0.173,
+    "delta": -0.028
+  },
+  {
+    "item_id": "f-batch4-Online-safety-for-children-protecting-the-next-Generation-from-harm-pdf-a",
+    "question": "What percentage of children face bullying through social networks?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.089,
+    "rag_classic_factual_correctness_ratio": 0.12,
+    "delta": -0.032
+  },
+  {
+    "item_id": "sktop-Faks-cyberbot-backend-merged-pdf-batch3-Infographic1-merged-compressed-pdf-a",
+    "question": "Кој е процентот на граѓани на Северна Македонија со основни дигитални вештини?",
+    "difficulty": "easy",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.066,
+    "rag_classic_factual_correctness_ratio": 0.101,
+    "delta": -0.034
+  },
+  {
+    "item_id": "2-cybersecurity-best-practices-safety-modern-vehicles-2022-pre-final-tag-0-0-pdf-a",
+    "question": "What is an Electronic Control Unit (ECU) in a vehicle?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.215,
+    "rag_classic_factual_correctness_ratio": 0.25,
+    "delta": -0.035
+  },
+  {
+    "item_id": "sktop-Faks-cyberbot-backend-merged-pdf-batch1-ACSC-Top-Tips-Guide-Macedonian-pdf-a",
+    "question": "Што значи MFA и како помага во заштита на вашата сметка?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.338,
+    "rag_classic_factual_correctness_ratio": 0.375,
+    "delta": -0.037
+  },
+  {
+    "item_id": "aks-cyberbot-backend-merged-pdf-batch2-Cybersecurity-in-education-27062024-1-pdf-a",
+    "question": "What is one of the goals mentioned for developing national standards in the field of information security?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.031,
+    "rag_classic_factual_correctness_ratio": 0.069,
+    "delta": -0.038
+  },
+  {
+    "item_id": "f-batch2-Cyber-Security-Awareness-For-Dummies-MetaCompliance-Special-Edition-pdf-a",
+    "question": "What is a common method used to provide insight into an organisation's ISMS?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.0,
+    "rag_classic_factual_correctness_ratio": 0.039,
+    "delta": -0.039
+  },
+  {
+    "item_id": "rko-Desktop-Faks-cyberbot-backend-merged-pdf-batch1-CSResourceReferenceGuide-pdf-a",
+    "question": "What is the purpose of NIST SP 800-39?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.232,
+    "rag_classic_factual_correctness_ratio": 0.284,
+    "delta": -0.053
+  },
+  {
+    "item_id": "bot-backend-merged-pdf-batch1-cfpb-cybersecurity-cyberwise-tips-foia-2021-06-pdf-a",
+    "question": "What is phishing?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.208,
+    "rag_classic_factual_correctness_ratio": 0.264,
+    "delta": -0.056
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch3-First-Steps-Macedonian-pdf-a",
+    "question": "What is the purpose of the guide 'Лична сајбер безбедност: први чекори'?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.164,
+    "rag_classic_factual_correctness_ratio": 0.228,
+    "delta": -0.064
+  },
+  {
+    "item_id": "rged-pdf-batch4-Textbook-Cyber4Kids-by-certSIGN-Cyber-education-for-children-pdf-a",
+    "question": "What should you do if you receive messages in a game asking you to pay for mega powers or to remove ads?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.22,
+    "rag_classic_factual_correctness_ratio": 0.286,
+    "delta": -0.066
+  },
+  {
+    "item_id": "Faks-cyberbot-backend-merged-pdf-batch3-GuidebookCyberThreats-MK-web-Jan2023-pdf-a",
+    "question": "Што е социјален инженеринг и како се користи во сајбер нападите?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.324,
+    "rag_classic_factual_correctness_ratio": 0.404,
+    "delta": -0.08
+  },
+  {
+    "item_id": "ktop-Faks-cyberbot-backend-merged-pdf-batch2-Digital-Safe-Space-for-Children-pdf-a",
+    "question": "What new regulation was introduced in September 2023 regarding search engines in Australia?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.163,
+    "rag_classic_factual_correctness_ratio": 0.248,
+    "delta": -0.085
+  },
+  {
+    "item_id": "Desktop-Faks-cyberbot-backend-merged-pdf-batch2-D4-0-O1A3-Compendium-4-0-EN-pdf-a",
+    "question": "What is the primary difference between additive manufacturing and subtractive manufacturing?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.394,
+    "rag_classic_factual_correctness_ratio": 0.486,
+    "delta": -0.092
+  },
+  {
+    "item_id": "cenka-na-nacionalnata-bezbednost-na-decata-na-internet-za-severna-makedonija-pdf-a",
+    "question": "Кои кривични дела се спомнати во текстот како извршени во 'Јавна соба'?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.12,
+    "rag_classic_factual_correctness_ratio": 0.214,
+    "delta": -0.094
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch3-Evidence-review-final-pdf-a",
+    "question": "What is causing the increasing scrutiny of privacy in the digital age?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.135,
+    "rag_classic_factual_correctness_ratio": 0.229,
+    "delta": -0.094
+  },
+  {
+    "item_id": "ko-Desktop-Faks-cyberbot-backend-merged-pdf-batch4-Sajber-Bezbednost-MKD-WEB-pdf-a",
+    "question": "Кои мерки можат да се преземат ако организацијата е жртва на напад со лозинка?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.226,
+    "rag_classic_factual_correctness_ratio": 0.324,
+    "delta": -0.098
+  },
+  {
+    "item_id": "Users-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-CyberVAWG-in-WB-pdf-a",
+    "question": "How does the Oxford Dictionary online define cybersecurity?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.245,
+    "rag_classic_factual_correctness_ratio": 0.387,
+    "delta": -0.142
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "item_id": "p-Faks-cyberbot-backend-merged-pdf-batch5-cybersecurity-tips-for-nd-citizens-pdf-a",
+    "question": "Why is it important to ensure online safety in today's world?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.262,
+    "rag_classic_factual_correctness_ratio": 0.142,
+    "delta": 0.12,
+    "graph_answer": "Ensuring online safety is crucial in today's world because the internet, while offering numerous benefits like communication, banking, and shopping, also presents significant risks. These risks include identity theft, malware infections, and exposure to unsafe networks or fraudulent activities. Protecting your online presence helps prevent unauthorized access to your personal information and ensures a safer digital experience.\n\nTo enhance your online safety, consider these practical steps:\n1. Us",
+    "classic_answer": "Ensuring online safety is crucial in today's world because the internet is deeply integrated into our daily lives, from communication and shopping to banking and social interactions. With this integration comes the risk of cyber threats such as identity theft, phishing scams, and malware attacks, which can lead to financial loss and privacy breaches.\n\nTo protect yourself online, consider these practical steps:\n\n1. **Use Strong Passwords**: Create complex passwords and use a password manager to k",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch4/Seniors-Guide-Macedonian.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch4/Seniors-Guide-Macedonian.pdf"
+    ],
+    "winner": "graph_rag"
+  },
+  {
+    "item_id": "erbot-backend-merged-pdf-batch3-Exposure-to-Inappropriate-Content-TG-updated-pdf-a",
+    "question": "What responsibility do teachers have regarding children's internet activities?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.279,
+    "rag_classic_factual_correctness_ratio": 0.161,
+    "delta": 0.117,
+    "graph_answer": "Teachers have a significant responsibility in guiding and protecting children during their internet activities. Based on the provided context, teachers should:\n\n1. **Educate Students**: Teachers are responsible for educating students about cybersecurity, including the importance of protecting personal information and understanding online privacy. This involves teaching them about the risks of sharing personal data and how to recognize and avoid cyber threats.\n\n2. **Monitor and Guide**: Teachers ",
+    "classic_answer": "Наставниците имаат значајна улога во насочување на децата за правилно користење на интернетот во училиштата. Според контекстот, тие треба да бидат информирани за тековните информациско-комуникациски технологии (ИКТ) и да ги следат активностите на учениците. Ова вклучува разбирање на нивните навики, потреби и интереси на интернет. Наставниците исто така треба да ги пренесуваат овие знаења и информации на родителите за да ги информираат за безбедноста на децата на интернет.\n\nЗа да се заштитат деца",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/mk-final-1.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/mk-final-1.pdf"
+    ],
+    "winner": "graph_rag"
+  },
+  {
+    "item_id": "ot-backend-merged-pdf-batch4-ORS-Cybersecurity-Best-Practices-2019-digitalv2-pdf-a",
+    "question": "What is the purpose of a Demilitarized Zone (DMZ) in computing?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.435,
+    "rag_classic_factual_correctness_ratio": 0.323,
+    "delta": 0.112,
+    "graph_answer": "A Demilitarized Zone (DMZ) in computing is a network area that acts as a buffer zone between an organization's internal network and the external internet. Its primary purpose is to add an extra layer of security by isolating public-facing services, such as web servers, mail servers, and VPN servers, from the internal network. This setup helps protect the internal network from potential attacks that might target these public services.\n\nIn practice, a DMZ is implemented by placing these servers in",
+    "classic_answer": "A Demilitarized Zone (DMZ) in computing is a physical or logical subnetwork that separates an organization's internal network from untrusted external networks, such as the internet. The primary purpose of a DMZ is to add an additional layer of security to an organization's local area network (LAN). By placing public-facing services, like web servers or email servers, in the DMZ, you can protect the internal network from direct exposure to potential threats.\n\nHere's how it works in practice:\n\n- *",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity-Handbook-English-version-compressed.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity-Handbook-English-version-compressed.pdf"
+    ],
+    "winner": "graph_rag"
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-cybersecurity-booklet-pdf-a",
+    "question": "Why is it recommended to read your email on an account with restricted privileges?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.31,
+    "rag_classic_factual_correctness_ratio": 0.204,
+    "delta": 0.107,
+    "graph_answer": "Препорачливо е да читате вашата е-пошта на сметка со ограничени привилегии за да се намали ризикот од потенцијални напади. Ако користите сметка со администраторски привилегии, напаѓачите кои добиваат пристап до вашата е-пошта можат да направат значителна штета, како што е инсталирање на малициозен софтвер или промена на системските поставки.\n\nЕве неколку практични совети за заштита:\n\n1. **Користете двофакторска автентикација (2FA):** Ова додава дополнителен слој на заштита, бидејќи дури и ако не",
+    "classic_answer": "Reading your email on an account with restricted privileges is recommended because it limits the potential damage if your account is compromised. If an attacker gains access to an account with administrative privileges, they could potentially make significant changes to your system or access sensitive information. By using an account with restricted privileges, you minimize these risks.\n\nHere are some practical defensive actions you can take:\n\n1. **Use Two-Factor Authentication (2FA):** As menti",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch4/Sajber-Bezbednost_MKD_WEB.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch4/Sajber-Bezbednost_MKD_WEB.pdf"
+    ],
+    "winner": "graph_rag"
+  },
+  {
+    "item_id": "arko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-CYBER-SECURITY-R18A0521-pdf-a",
+    "question": "What is the title of the book authored by B.B. Gupta, D.P. Agrawal, and Haoxiang Wang?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.083,
+    "rag_classic_factual_correctness_ratio": 0.0,
+    "delta": 0.083,
+    "graph_answer": "Based on the provided context, the title of the book authored by B.B. Gupta, D.P. Agrawal, and Haoxiang Wang is not available. However, if you have any questions about cybersecurity or need assistance with digital safety, feel free to ask! As a quick safety tip, always ensure that your software is up-to-date to protect against vulnerabilities.",
+    "classic_answer": "Based on the provided context, the title of the book authored by B.B. Gupta, D.P. Agrawal, and Haoxiang Wang is not available. However, if you are interested in cybersecurity topics, I can help explain various concepts or provide safety tips.\n\nAs a general safety tip, always ensure your software is up to date to protect against vulnerabilities. If you have more questions or need further assistance, feel free to ask!",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity.pdf"
+    ],
+    "winner": "graph_rag"
+  },
+  {
+    "item_id": "Users-Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch2-CyberVAWG-in-WB-pdf-a",
+    "question": "How does the Oxford Dictionary online define cybersecurity?",
+    "difficulty": "easy",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.245,
+    "rag_classic_factual_correctness_ratio": 0.387,
+    "delta": -0.142,
+    "graph_answer": "The Oxford Dictionary online defines cybersecurity as \"The state of being protected against the criminal or unauthorised use of electronic data, or the measures taken to achieve this.\" This definition emphasizes the protection of electronic data from unauthorized access or criminal activities. \n\nIf you have any more questions about cybersecurity or need tips on staying safe online, feel free to ask!",
+    "classic_answer": "The Oxford Dictionary online defines cybersecurity as: “The state of being protected against the criminal or unauthorised use of electronic data, or the measures taken to achieve this.” This definition emphasizes the importance of safeguarding electronic data from unauthorized access or criminal activities.\n\nIf you have any more questions about cybersecurity or need tips on how to protect your digital life, feel free to ask!",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch2/CyberVAWG_in_WB.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch2/CyberVAWG_in_WB.pdf"
+    ],
+    "winner": "rag_classic"
+  },
+  {
+    "item_id": "ko-Desktop-Faks-cyberbot-backend-merged-pdf-batch4-Sajber-Bezbednost-MKD-WEB-pdf-a",
+    "question": "Кои мерки можат да се преземат ако организацијата е жртва на напад со лозинка?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.226,
+    "rag_classic_factual_correctness_ratio": 0.324,
+    "delta": -0.098,
+    "graph_answer": "Ако организацијата е жртва на напад со лозинка, постојат неколку мерки кои можат да се преземат за да се заштити од идни напади:\n\n1. **Форензичка истрага**: Прво, спроведете форензичка истрага за да се утврди како нападот се случил. Ова ќе помогне да се идентификуваат слабостите, како што се користење на стандардни лозинки.\n\n2. **Промена на лозинки**: Сите компромитирани лозинки треба веднаш да се променат. Осигурете се дека новите лозинки се силни и уникатни.\n\n3. **Двостепена автентикација (2FA",
+    "classic_answer": "Ако организацијата е жртва на напад со лозинка, постојат неколку мерки кои може да се преземат за да се подобри безбедноста и да се спречат идни напади:\n\n1. **Промена на лозинки**: Веднаш променете ги сите лозинки, особено ако се користеле стандардни или слаби лозинки. Осигурете се дека новите лозинки се силни и уникатни.\n\n2. **Двофакторска автентикација (2FA)**: Воведете двофакторска автентикација за сите корисници. Ова додава дополнителен слој на заштита, барајќи втор облик на верификација пок",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch5/Cybersecurity.pdf"
+    ],
+    "winner": "rag_classic"
+  },
+  {
+    "item_id": "Marko-Desktop-Faks-cyberbot-backend-merged-pdf-batch3-Evidence-review-final-pdf-a",
+    "question": "What is causing the increasing scrutiny of privacy in the digital age?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.135,
+    "rag_classic_factual_correctness_ratio": 0.229,
+    "delta": -0.094,
+    "graph_answer": "The increasing scrutiny of privacy in the digital age is primarily due to the sophisticated technologies that mediate communication and information, which are globally networked and commercially valuable. These technologies have shifted the conditions under which privacy can be sustained and blurred the boundaries between public and private domains. There is a growing concern about the loss of control over personal information and the understanding of what is public or private in digital environ",
+    "classic_answer": "The increasing scrutiny of privacy in the digital age is primarily driven by the rapid advancement of technologies that facilitate communication and information exchange. These technologies are becoming more sophisticated, globally interconnected, and commercially valuable. As a result, the conditions under which privacy can be maintained are changing, and the lines between public and private domains are becoming blurred. This has led to growing concerns about individuals losing control over the",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch3/Evidence-review-final.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch3/Evidence-review-final.pdf"
+    ],
+    "winner": "rag_classic"
+  },
+  {
+    "item_id": "cenka-na-nacionalnata-bezbednost-na-decata-na-internet-za-severna-makedonija-pdf-a",
+    "question": "Кои кривични дела се спомнати во текстот како извршени во 'Јавна соба'?",
+    "difficulty": "medium",
+    "language": "mk",
+    "rag_graph_factual_correctness_ratio": 0.12,
+    "rag_classic_factual_correctness_ratio": 0.214,
+    "delta": -0.094,
+    "graph_answer": "Во текстот се спомнуваат неколку кривични дела поврзани со случајот „Јавна соба“. Овие вклучуваат:\n\n1. **Неправилно споделување на лични податоци**: Споделување на фотографии и видеа без согласност на лицата кои се на нив, што претставува нарушување на приватноста.\n   \n2. **Клевета и навреда**: Споделување на слики со вулгарни коментари кои инсинуираат дека лицата нудат сексуални услуги.\n\n3. **Вознемирување**: Жртвите добиваат непристојни понуди, повици и пораки, што претставува форма на вознеми",
+    "classic_answer": "Во текстот се спомнува дека во групите на Телеграм со име „Јавна соба“ се споделуваат фотографии и видеа без согласност на лицата на нив. Ова може да се смета за кривично дело поврзано со нарушување на приватноста и злоупотреба на лични податоци. Јавното обвинителство известува дека случајот е во предистражна постапка и се врши форензичка анализа на запленетите мобилни телефони.\n\nЗа заштита од вакви ситуации, препорачувам:\n- Внимавајте какви фотографии и информации споделувате на социјалните мре",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch6/Za-kogo-internetot-e-bezbedno-mesto-finalno.-docx.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch6/Za-kogo-internetot-e-bezbedno-mesto-finalno.-docx.pdf"
+    ],
+    "winner": "rag_classic"
+  },
+  {
+    "item_id": "Desktop-Faks-cyberbot-backend-merged-pdf-batch2-D4-0-O1A3-Compendium-4-0-EN-pdf-a",
+    "question": "What is the primary difference between additive manufacturing and subtractive manufacturing?",
+    "difficulty": "medium",
+    "language": "en",
+    "rag_graph_factual_correctness_ratio": 0.394,
+    "rag_classic_factual_correctness_ratio": 0.486,
+    "delta": -0.092,
+    "graph_answer": "Additive manufacturing and subtractive manufacturing are two different approaches to creating objects. \n\n- **Additive Manufacturing**: This process involves building objects layer by layer, usually using materials like plastics or metals. It's commonly known as 3D printing. The main advantage is its ability to create complex and customized parts with minimal waste, as material is only added where needed.\n\n- **Subtractive Manufacturing**: In contrast, this method starts with a solid block of mate",
+    "classic_answer": "Additive manufacturing, often known as 3D printing, builds objects layer by layer from materials like plastic, metal, or resin. This allows for the creation of complex and customized parts with minimal waste. In contrast, subtractive manufacturing involves cutting away material from a solid block to form the desired shape, which can result in more material waste.\n\nWhile my main expertise is in cybersecurity, here's a quick safety tip: Always ensure your 3D printing software is up-to-date to prot",
+    "graph_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch2/D4.0_O1A3_Compendium_4.0_-_EN.pdf"
+    ],
+    "classic_retrieved_sources": [
+      "/Users/Marko/Desktop/Faks/cyberbot/backend/merged_pdf/batch2/D4.0_O1A3_Compendium_4.0_-_EN.pdf"
+    ],
+    "winner": "rag_classic"
+  }
+]
