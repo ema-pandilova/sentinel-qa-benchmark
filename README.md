@@ -7,10 +7,6 @@ indexes a corpus of cybersecurity documents, runs four answer-generation pipelin
 models, and scores the answers with a panel of LLM judges on two axes: factual
 correctness and grounding.
 
-An interactive, self-contained walkthrough of the main finding is in
-[`grounded-but-wrong-explainer.html`](grounded-but-wrong-explainer.html) — open it in
-any browser.
-
 ## Repository layout
 
 ```

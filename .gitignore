@@ -29,3 +29,6 @@ rag/graph/*.pkl
 data/benchmark_results*.jsonl
 data/benchmark_judgements.jsonl
 data/generated_questions_raw.jsonl
+
+# Interactive explainer (kept local, not published)
+grounded-but-wrong-explainer.html
