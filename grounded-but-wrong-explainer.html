@@ -1,0 +1,1245 @@
+<title>The Grounded-but-Wrong Gap — Explained</title>
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --plane:#e9edf4; --surface:#ffffff; --surface-2:#f3f6fb; --inset:#eef1f7;
+    --ink:#131a2a; --ink-2:#44506a; --muted:#78849a;
+    --hair:#dce2ec; --hair-2:#c7cfdd;
+    --accent:#d9611e; --accent-ink:#b04e14; --accent-soft:#fbeadd;
+    --grounding:#2a78d6; --factual:#d9611e;
+    --pipe-classic:#2a78d6; --pipe-graph:#0a7a2f; --pipe-dspy:#4a3aa7; --pipe-zero:#8792a6;
+    --good:#0a8a0a; --warn:#c98500; --crit:#c5382f;
+    --grid:#e4e9f1; --axis:#c4cdda;
+    --shadow:0 1px 2px rgba(19,26,42,.04),0 8px 28px rgba(19,26,42,.07);
+    --shadow-lift:0 2px 6px rgba(19,26,42,.06),0 18px 44px rgba(19,26,42,.12);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --maxw:1120px; --read:68ch;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --plane:#0a0e17; --surface:#131a27; --surface-2:#101623; --inset:#0e141f;
+      --ink:#eef2f9; --ink-2:#aeb9cb; --muted:#727e93;
+      --hair:#222b3b; --hair-2:#303c52;
+      --accent:#ff8a45; --accent-ink:#ff9d63; --accent-soft:#2a1c11;
+      --grounding:#3987e5; --factual:#ff8a45;
+      --pipe-classic:#3987e5; --pipe-graph:#2fa851; --pipe-dspy:#9085e9; --pipe-zero:#7c8598;
+      --good:#2fa851; --warn:#e0a52a; --crit:#e26a62;
+      --grid:#1c2534; --axis:#33405a;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.4);
+      --shadow-lift:0 2px 6px rgba(0,0,0,.35),0 22px 50px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#0a0e17; --surface:#131a27; --surface-2:#101623; --inset:#0e141f;
+    --ink:#eef2f9; --ink-2:#aeb9cb; --muted:#727e93;
+    --hair:#222b3b; --hair-2:#303c52;
+    --accent:#ff8a45; --accent-ink:#ff9d63; --accent-soft:#2a1c11;
+    --grounding:#3987e5; --factual:#ff8a45;
+    --pipe-classic:#3987e5; --pipe-graph:#2fa851; --pipe-dspy:#9085e9; --pipe-zero:#7c8598;
+    --good:#2fa851; --warn:#e0a52a; --crit:#e26a62;
+    --grid:#1c2534; --axis:#33405a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.4);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.35),0 22px 50px rgba(0,0,0,.55);
+  }
+  :root[data-theme="light"]{
+    --plane:#e9edf4; --surface:#ffffff; --surface-2:#f3f6fb; --inset:#eef1f7;
+    --ink:#131a2a; --ink-2:#44506a; --muted:#78849a;
+    --hair:#dce2ec; --hair-2:#c7cfdd;
+    --accent:#d9611e; --accent-ink:#b04e14; --accent-soft:#fbeadd;
+    --grounding:#2a78d6; --factual:#d9611e;
+    --pipe-classic:#2a78d6; --pipe-graph:#0a7a2f; --pipe-dspy:#4a3aa7; --pipe-zero:#8792a6;
+    --good:#0a8a0a; --warn:#c98500; --crit:#c5382f;
+    --grid:#e4e9f1; --axis:#c4cdda;
+    --shadow:0 1px 2px rgba(19,26,42,.04),0 8px 28px rgba(19,26,42,.07);
+    --shadow-lift:0 2px 6px rgba(19,26,42,.06),0 18px 44px rgba(19,26,42,.12);
+  }
+
+  /* ============ BASE ============ */
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--plane);color:var(--ink);font-family:var(--sans);
+    line-height:1.62;-webkit-font-smoothing:antialiased;font-size:17px;overflow-x:hidden}
+  h1,h2,h3,h4{line-height:1.15;text-wrap:balance;margin:0}
+  p{margin:0 0 1em}
+  a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+  strong{color:var(--ink);font-weight:650}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .read{max-width:var(--read)}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent-ink);font-weight:600}
+  .muted{color:var(--muted)}
+  .nowrap{white-space:nowrap}
+
+  /* ============ NAV ============ */
+  header.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--plane) 86%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .topbar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:-.01em;flex:0 0 auto}
+  .brand .glyph{width:22px;height:22px;flex:0 0 auto}
+  .navlinks{display:flex;gap:2px;overflow-x:auto;flex:1 1 auto;scrollbar-width:none}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;
+    padding:6px 10px;border-radius:7px;white-space:nowrap;letter-spacing:.02em}
+  .navlinks a:hover{background:var(--surface-2);color:var(--ink)}
+  .navlinks a.active{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+  .themebtn{flex:0 0 auto;width:34px;height:34px;border-radius:8px;border:1px solid var(--hair-2);
+    background:var(--surface);color:var(--ink-2);cursor:pointer;display:grid;place-items:center;font-size:15px}
+  .themebtn:hover{color:var(--ink);border-color:var(--accent)}
+
+  /* ============ HERO ============ */
+  .hero{padding:70px 0 40px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  @media (max-width:880px){.hero-grid{grid-template-columns:1fr;gap:30px}}
+  .hero h1{font-size:clamp(34px,5.4vw,60px);font-weight:800;letter-spacing:-.03em;margin:16px 0 18px}
+  .hero h1 .hl{color:var(--accent-ink);position:relative;white-space:nowrap}
+  .hero .lede{font-size:clamp(18px,2.2vw,21px);color:var(--ink-2);max-width:36ch}
+  .hero .sig{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);border-radius:14px;overflow:hidden;margin-top:34px}
+  @media (max-width:520px){.statrow{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--surface);padding:16px 16px 14px}
+  .stat .v{font-size:26px;font-weight:750;letter-spacing:-.02em;line-height:1}
+  .stat .l{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--muted);margin-top:7px}
+
+  /* ============ SECTIONS ============ */
+  section.band{padding:58px 0;border-top:1px solid var(--hair)}
+  .kicker{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+  .kicker .num{font-family:var(--mono);font-size:13px;color:var(--accent-ink);font-weight:650}
+  h2.sec{font-size:clamp(25px,3.6vw,36px);font-weight:780;letter-spacing:-.025em}
+  h3.sub{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:34px 0 12px}
+  .lead{font-size:19px;color:var(--ink-2);margin:12px 0 8px;max-width:var(--read)}
+
+  /* ============ CARDS / PANELS ============ */
+  .panel{background:var(--surface);border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow);
+    padding:22px;margin-top:22px}
+  .panel.figure{padding:20px 20px 16px}
+  .figtitle{font-weight:700;font-size:16px;letter-spacing:-.01em;margin-bottom:2px}
+  .figsub{font-size:13.5px;color:var(--muted);margin-bottom:12px;max-width:60ch}
+  .figcap{font-size:13.5px;color:var(--ink-2);margin-top:12px;padding-top:12px;border-top:1px dashed var(--hair-2)}
+  .figcap b{color:var(--ink)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+
+  .callout{border-left:3px solid var(--accent);background:var(--accent-soft);
+    padding:14px 18px;border-radius:0 12px 12px 0;margin:20px 0;font-size:16px}
+  .callout .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--accent-ink);font-weight:700;display:block;margin-bottom:4px}
+  .note{background:var(--surface-2);border:1px solid var(--hair);border-radius:12px;padding:14px 16px;font-size:15px}
+
+  /* chips / definitions */
+  .defterm{border-bottom:1.5px dotted var(--accent);cursor:help;font-weight:600;color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;
+    padding:3px 9px;border-radius:999px;border:1px solid var(--hair-2);background:var(--surface-2);color:var(--ink-2)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:2px 0 8px;font-size:13px;color:var(--ink-2)}
+  .legend .item{display:inline-flex;align-items:center;gap:7px}
+  .legend .swatch{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+  .legend .line-key{width:16px;height:0;border-top:3px solid;border-radius:2px}
+
+  /* tables */
+  .tablewrap{overflow-x:auto;border:1px solid var(--hair);border-radius:12px;margin-top:16px}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{padding:9px 13px;text-align:right;border-bottom:1px solid var(--hair);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--muted);font-weight:600;background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  tr.hi td{background:var(--accent-soft)}
+
+  /* svg charts */
+  .chart{width:100%;height:auto;display:block;font-family:var(--mono)}
+  .chart text{fill:var(--ink-2)}
+  .ax-title{fill:var(--muted);font-size:11px;letter-spacing:.04em}
+  .tick{fill:var(--muted);font-size:10.5px}
+  .gridline{stroke:var(--grid);stroke-width:1}
+  .axisline{stroke:var(--axis);stroke-width:1}
+  .mk{cursor:pointer}
+  .chartscroll{overflow-x:auto}
+
+  /* tooltip */
+  #tip{position:fixed;z-index:200;pointer-events:none;opacity:0;transform:translateY(4px);
+    transition:opacity .12s;background:var(--ink);color:var(--surface);
+    padding:9px 11px;border-radius:9px;font-size:12.5px;line-height:1.45;max-width:250px;
+    box-shadow:var(--shadow-lift);font-family:var(--sans)}
+  #tip .tt{font-family:var(--mono);font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.06em}
+  #tip b{color:var(--surface)}
+  :root[data-theme="dark"] #tip,:root:not([data-theme="light"]) #tip{}
+  @media (prefers-color-scheme: dark){#tip{background:#e9edf4;color:#0a0e17}#tip b{color:#0a0e17}}
+  :root[data-theme="dark"] #tip{background:#e9edf4;color:#0a0e17}
+  :root[data-theme="light"] #tip{background:#131a2a;color:#fff}
+  :root[data-theme="light"] #tip b{color:#fff}
+
+  /* pipeline explorer */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .tab{font-family:var(--mono);font-size:13px;padding:8px 14px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--hair-2);background:var(--surface-2);color:var(--ink-2);transition:all .15s}
+  .tab:hover{border-color:var(--accent)}
+  .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  :root[data-theme="dark"] .tab[aria-selected="true"]{color:#0a0e17}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab[aria-selected="true"]{color:#0a0e17}}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:20px 0 6px}
+  .stage{flex:1 1 120px;min-width:110px;background:var(--surface-2);border:1px solid var(--hair);
+    border-radius:12px;padding:13px 12px;text-align:center;position:relative;transition:all .25s}
+  .stage.off{opacity:.32;filter:grayscale(.4)}
+  .stage.hot{border-color:var(--accent);background:var(--accent-soft);box-shadow:var(--shadow)}
+  .stage .ic{font-size:20px}
+  .stage .nm{font-weight:650;font-size:14px;margin-top:4px}
+  .stage .ds{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}
+  .arrow{flex:0 0 26px;display:grid;place-items:center;color:var(--muted);font-size:18px}
+  @media (max-width:640px){.arrow{flex-basis:100%;height:20px;transform:rotate(90deg)}}
+  .explain{margin-top:12px;font-size:15.5px;color:var(--ink-2);min-height:3em}
+
+  /* quadrant */
+  .quad-svg{width:100%;height:auto;max-width:560px;margin:0 auto;display:block}
+  .qcell{cursor:pointer;transition:opacity .15s}
+  .qcell:hover{opacity:.9}
+  .qlabel{font-family:var(--sans);font-weight:700}
+
+  /* limitations */
+  details.lim{background:var(--surface);border:1px solid var(--hair);border-radius:14px;
+    margin-top:14px;box-shadow:var(--shadow);overflow:hidden}
+  details.lim summary{cursor:pointer;list-style:none;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+  details.lim summary::-webkit-details-marker{display:none}
+  details.lim .chev{margin-left:auto;color:var(--muted);transition:transform .2s;flex:0 0 auto;font-size:14px}
+  details.lim[open] .chev{transform:rotate(90deg)}
+  .lim .lnum{font-family:var(--mono);font-weight:700;color:var(--accent-ink);font-size:14px;
+    background:var(--accent-soft);border-radius:8px;padding:4px 9px;flex:0 0 auto}
+  .lim .ltitle{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+  .lim .lsum{font-size:14px;color:var(--muted);margin-top:2px}
+  .lim .body{padding:0 20px 20px 20px;border-top:1px solid var(--hair)}
+  .lim .body>div{margin-top:14px}
+  .lbl-mini{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+    font-weight:650;color:var(--ink-2);margin-bottom:3px;display:flex;align-items:center;gap:6px}
+  .qa{background:var(--surface-2);border:1px solid var(--hair);border-radius:12px;padding:13px 15px}
+  .qa .q{font-weight:650;color:var(--ink)}
+  .qa .a{color:var(--ink-2);font-size:15px;margin-top:5px}
+  .sev{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:999px;font-weight:650;
+    text-transform:uppercase;letter-spacing:.05em}
+  .sev.core{background:color-mix(in srgb,var(--crit) 16%,transparent);color:var(--crit)}
+  .sev.scope{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+  .sev.minor{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+
+  /* codebase */
+  .codeflow{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .cstep{display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start;
+    background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .cstep .n{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);
+    font-family:var(--mono);font-weight:700;display:grid;place-items:center;font-size:14px}
+  .cstep code{font-family:var(--mono);font-size:13px;background:var(--inset);padding:1px 6px;border-radius:5px;
+    color:var(--ink);border:1px solid var(--hair)}
+  .cstep .ct{font-weight:650;margin-bottom:2px}
+  .cstep .cd{font-size:14.5px;color:var(--ink-2)}
+  .cstep .cprod{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:4px}
+
+  .keyword{font-family:var(--mono);font-size:.92em;background:var(--inset);padding:1px 6px;border-radius:5px;
+    border:1px solid var(--hair);color:var(--ink)}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--hair);color:var(--muted);font-size:14px}
+  .divider-note{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;
+    letter-spacing:.06em;margin:6px 0}
+  ul.clean{margin:8px 0;padding-left:20px}
+  ul.clean li{margin:5px 0}
+  .two-answers{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media (max-width:640px){.two-answers{grid-template-columns:1fr}}
+  .ans{border-radius:12px;padding:14px;border:1px solid var(--hair);background:var(--surface-2);font-size:14.5px}
+  .ans .h{font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .ans.good .h{color:var(--good)} .ans.bad .h{color:var(--crit)}
+  .badge{font-family:var(--mono);font-size:10.5px;padding:2px 7px;border-radius:6px;font-weight:650}
+  .badge.g{background:color-mix(in srgb,var(--grounding) 18%,transparent);color:var(--grounding)}
+  .badge.f-hi{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+  .badge.f-lo{background:color-mix(in srgb,var(--crit) 16%,transparent);color:var(--crit)}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="var(--axis)" stroke-width="1.5"/>
+        <line x1="4" y1="20" x2="20" y2="20" stroke="var(--grounding)" stroke-width="1.5"/>
+        <line x1="4" y1="4" x2="4" y2="20" stroke="var(--factual)" stroke-width="1.5"/>
+        <circle cx="9" cy="9" r="2.3" fill="var(--pipe-dspy)"/>
+        <circle cx="15" cy="15.5" r="2.3" fill="var(--pipe-graph)"/>
+      </svg>
+      <span>Grounded&nbsp;≠&nbsp;Correct</span>
+    </div>
+    <nav class="navlinks" id="nav">
+      <a href="#idea">the idea</a>
+      <a href="#rag">how RAG works</a>
+      <a href="#bench">benchmark</a>
+      <a href="#judge">the judges</a>
+      <a href="#results">results</a>
+      <a href="#robust">robustness</a>
+      <a href="#limits">limitations</a>
+      <a href="#code">the code</a>
+      <a href="#cheat">cheat-sheet</a>
+    </nav>
+    <button class="themebtn" id="themebtn" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Paper + codebase, explained</span>
+      <h1>An answer can be <span class="hl">well-sourced</span> and still be <span class="hl">wrong</span>.</h1>
+      <p class="lede">This project builds a cybersecurity Q&amp;A benchmark and shows that the two things we usually measure &mdash; <em>grounding</em> and <em>factual correctness</em> &mdash; don't move together. Here's the whole study and the code behind it, in plain language.</p>
+      <div class="statrow">
+        <div class="stat"><div class="v">80</div><div class="l">hand-checked questions</div></div>
+        <div class="stat"><div class="v">3,509</div><div class="l">answers graded</div></div>
+        <div class="stat"><div class="v">4×3</div><div class="l">pipelines × generators</div></div>
+        <div class="stat"><div class="v">4</div><div class="l">AI judges per answer</div></div>
+        <div class="stat"><div class="v">2</div><div class="l">languages (EN + MK)</div></div>
+        <div class="stat"><div class="v">≈8,250</div><div class="l">searchable text chunks</div></div>
+      </div>
+      <div class="sig">Paper: “The Grounded-but-Wrong Gap in Cybersecurity RAG” · a bilingual benchmark &amp; multi-judge study</div>
+    </div>
+    <div class="panel figure" style="margin-top:0">
+      <div class="figtitle">The one picture that says it all</div>
+      <div class="figsub">Every dot is one system configuration. They fan out sideways (grounding) but barely rise (correctness).</div>
+      <div id="hero-plane"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 THE IDEA ============ -->
+<section class="band" id="idea">
+  <div class="wrap">
+    <div class="kicker"><span class="num">01</span><span class="eyebrow">The core idea</span></div>
+    <h2 class="sec">Two different questions we keep confusing</h2>
+    <p class="lead">When an AI answers a cybersecurity question using retrieved documents, we can ask two <em>separate</em> things about its answer. Most research quietly treats them as one. This paper's whole point is that they are not.</p>
+
+    <div class="grid2">
+      <div class="panel">
+        <div class="lbl-mini"><span class="dot" style="background:var(--grounding)"></span>Grounding</div>
+        <p style="margin:6px 0 0"><strong>“Does the answer match the documents it was shown?”</strong> Also called <span class="defterm" data-def="Faithfulness / attribution: whether each sentence can be traced to the retrieved source text. It says nothing about whether the source — or the sentence — is actually true.">faithfulness or attribution</span>. It measures whether the answer <em>looks sourced</em>. It is cheap for a model to score high here: just paraphrase the text you were handed.</p>
+      </div>
+      <div class="panel">
+        <div class="lbl-mini"><span class="dot" style="background:var(--factual)"></span>Factual correctness</div>
+        <p style="margin:6px 0 0"><strong>“Is the answer actually true?”</strong> Measured against a human-checked <em>reference answer</em> the model never sees. This is what a security analyst actually needs. It's much harder — the model has to select the <em>right</em> facts, not just echo nearby text.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Why the difference is dangerous</h3>
+    <p class="read">A correct-but-unsourced answer is just hearsay. But an answer that is <strong>fluently grounded yet factually wrong</strong> is worse than useless — the citations make it <em>persuasive</em>. In cybersecurity that can mean acting on a fake vulnerability or mis-classifying a real attack. The paper calls this the <strong>“grounded-but-wrong” gap</strong>.</p>
+
+    <div class="grid2">
+      <div class="panel figure">
+        <div class="figtitle">The four outcomes (hover a square)</div>
+        <div class="figsub">A single answer lands in one of these boxes. Only the top-right is safe.</div>
+        <div id="quad"></div>
+      </div>
+      <div>
+        <p class="read"><strong>An example.</strong> Ask: <em>“What is the purpose of a DMZ in computing?”</em> Two answers can both cite the same retrieved paragraph:</p>
+        <div class="two-answers">
+          <div class="ans good">
+            <div class="h">✓ Grounded &amp; correct</div>
+            <p style="margin:0">“A DMZ is a buffer network segment that isolates externally-facing services and limits inbound traffic to the internal network.”</p>
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge g">grounded</span><span class="badge f-hi">true</span></div>
+          </div>
+          <div class="ans bad">
+            <div class="h">✕ Grounded but wrong</div>
+            <p style="margin:0">“A DMZ encrypts all internal traffic and replaces the need for a firewall.” — sounds sourced, echoes nearby words, but it is <em>false</em>.</p>
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge g">grounded</span><span class="badge f-lo">false</span></div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:16px"><span class="tag">The finding in one line</span>
+          The design change that reliably makes answers <em>look</em> more sourced (GraphRAG) does <strong>not</strong> make them more correct — and sometimes makes them <em>less</em> correct. Only one method improved both.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 HOW RAG WORKS ============ -->
+<section class="band" id="rag">
+  <div class="wrap">
+    <div class="kicker"><span class="num">02</span><span class="eyebrow">Background you'll need</span></div>
+    <h2 class="sec">How these systems actually work</h2>
+    <p class="lead">All four systems tested are variations on <span class="defterm" data-def="Retrieval-Augmented Generation: instead of answering from memory, the model first fetches relevant text from a document collection, then writes its answer using that text.">RAG — Retrieval-Augmented Generation</span>. The recipe: <strong>find relevant text, then let the model answer using it.</strong></p>
+
+    <div class="note read" style="margin-top:18px">
+      <strong>The vocabulary, once:</strong>
+      <ul class="clean">
+        <li><span class="defterm" data-def="A document is sliced into small overlapping passages (~700 characters here) so the system can retrieve just the relevant piece instead of a whole PDF.">Chunk</span> — a small slice of a document. The 49 PDFs became ≈8,250 chunks.</li>
+        <li><span class="defterm" data-def="A list of numbers (here 384 of them) that captures the meaning of a chunk. Similar meanings → nearby vectors. Produced by a 'sentence encoder' model.">Embedding</span> — the meaning of a chunk turned into a list of numbers, so the computer can compare meanings.</li>
+        <li><span class="defterm" data-def="Cosine similarity measures the angle between two embedding vectors. Close to 1 = very similar meaning. It's how the system decides which chunks match your question.">Cosine similarity</span> — the score for “how close in meaning are these two texts?”</li>
+        <li><span class="defterm" data-def="k is how many top-matching chunks you hand to the model. The study tested k = 1, 3, and 5. Bigger k = more context, more cost, and — surprisingly — not always more correct.">k</span> — how many top chunks you feed the model (they tried 1, 3, 5).</li>
+        <li><span class="defterm" data-def="A hallucination is a claim the model makes that is NOT supported by the text it was given. Hallucination rate = 1 − grounding.">Hallucination</span> — a claim not backed by the given text (= 1 − grounding).</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">The four pipelines, side by side</h3>
+    <p class="read">A “pipeline” is a whole strategy for turning a question into an answer. Click each one — the diagram shows what changes. Crucially, the retrieval step is <strong>identical</strong> for the RAG ones, so any difference in results comes from what happens <em>after</em> retrieval.</p>
+
+    <div class="panel figure">
+      <div class="tabs" role="tablist" id="pipetabs">
+        <button class="tab" role="tab" data-p="zero"><span class="dot" style="background:var(--pipe-zero);display:inline-block;margin-right:6px"></span>Zero-shot</button>
+        <button class="tab" role="tab" data-p="classic"><span class="dot" style="background:var(--pipe-classic);display:inline-block;margin-right:6px"></span>Classic RAG</button>
+        <button class="tab" role="tab" data-p="graph"><span class="dot" style="background:var(--pipe-graph);display:inline-block;margin-right:6px"></span>GraphRAG</button>
+        <button class="tab" role="tab" data-p="dspy"><span class="dot" style="background:var(--pipe-dspy);display:inline-block;margin-right:6px"></span>DSPy RAG</button>
+      </div>
+      <div class="flow" id="flow"></div>
+      <div class="explain" id="pipeexplain"></div>
+    </div>
+    <p class="figcap read"><b>GraphRAG</b> adds one step: before answering, it follows a pre-built <span class="defterm" data-def="A network linking chunks that are on the same page, or whose embeddings are very similar (cosine ≥ 0.8). At answer time it pulls in a retrieved chunk's neighbours, hoping to add missing context.">chunk graph</span> to pull in extra “neighbour” chunks. <b>DSPy</b> instead swaps the hand-written prompt for a compiled, structured template (<span class="mono">context + question → answer</span>). Remember these two — they are the heroes and villains of the results.</p>
+  </div>
+</section>
+
+<!-- ============ 03 BENCHMARK ============ -->
+<section class="band" id="bench">
+  <div class="wrap">
+    <div class="kicker"><span class="num">03</span><span class="eyebrow">The test set</span></div>
+    <h2 class="sec">SENTINEL-QA: the benchmark they built</h2>
+    <p class="lead">You can't measure any of this without a trustworthy set of questions <em>with known right answers</em>. So they built one from scratch — bilingual, and deliberately hard.</p>
+
+    <div class="grid2">
+      <div>
+        <p class="read">GPT-4o drafted question–answer pairs from single chunks of 49 authoritative cybersecurity PDFs (strategy documents, online-safety guides, laws). Then <strong>the humans took over</strong>: every question and reference answer was reviewed, edited, or thrown out. So it's a <em>human-authored</em> set, merely seeded by an LLM.</p>
+        <p class="read">Two ground-truth labels per item: a <strong>reference answer</strong> (anchors correctness) and the set of <strong>reference chunk IDs</strong> (anchors grounding &amp; retrieval scoring). English and <span class="defterm" data-def="Macedonian — a South-Slavic language with far less training data than English. Including it tests whether findings hold in a 'low-resource' language, not just English.">Macedonian</span> are both included on purpose.</p>
+        <div class="callout"><span class="tag">Why only 80 items?</span>Each item is answered by 4 pipelines × 3 models × 3 k-values, and every answer is scored by 4 judges — that's <strong>16 judgments per (item, pipeline) cell</strong>. Scaling to thousands would be enormously expensive. 80 is a deliberate trade for depth over breadth. <em>(Hold that thought — it's Limitation #2.)</em></div>
+      </div>
+      <div class="panel figure">
+        <div class="figtitle">What's in the benchmark</div>
+        <div class="figsub">Difficulty is skewed toward <em>hard</em> on purpose — that's where grounding-only scoring is most misleading.</div>
+        <div id="bench-bars"></div>
+      </div>
+    </div>
+
+    <h3 class="sub">The ceiling nobody can beat: retrieval</h3>
+    <p class="read">Before comparing pipelines, note the hard limit. If the right chunk is never fetched, no amount of clever prompting can save the answer. <span class="defterm" data-def="Hit@k = the fraction of questions where at least one genuinely relevant chunk appears in the top-k retrieved. Here it maxes out around 0.6, meaning ~40% of questions never even see a correct source.">Hit@5</span> tops out around <strong>0.57–0.61</strong>. So on ~40% of questions, the correct source isn't even in the top 5. Every result below lives under this cap.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Retriever (per generator)</th><th>P@1</th><th>P@3</th><th>P@5</th><th>Hit@1</th><th>Hit@3</th><th>Hit@5</th></tr></thead>
+        <tbody>
+          <tr><td>GPT-4o config</td><td class="num">0.388</td><td class="num">0.286</td><td class="num">0.229</td><td class="num">0.388</td><td class="num">0.490</td><td class="num">0.571</td></tr>
+          <tr><td>Claude / DeepSeek config</td><td class="num">0.425</td><td class="num">0.325</td><td class="num">0.263</td><td class="num">0.425</td><td class="num">0.537</td><td class="num">0.613</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figcap"><b>P@k</b> (precision) = of the k chunks fetched, what fraction were relevant. <b>Hit@k</b> = did <em>any</em> relevant chunk make the top k. Retrieval is shared across pipelines, so these numbers are the same floor for everyone.</p>
+  </div>
+</section>
+
+<!-- ============ 04 JUDGES ============ -->
+<section class="band" id="judge">
+  <div class="wrap">
+    <div class="kicker"><span class="num">04</span><span class="eyebrow">Measurement</span></div>
+    <h2 class="sec">How 3,509 answers got graded</h2>
+    <p class="lead">There's no human grading every answer — instead a panel of four AI models acts as judges (“<span class="defterm" data-def="LLM-as-judge: using a language model to score another model's output against a rubric. Cheap and scalable, but the judge can be biased or lenient — which is why a diverse 4-model panel is used and its agreement is reported.">LLM-as-judge</span>”). Using four different models reduces any single model's bias.</p>
+
+    <div class="grid3">
+      <div class="panel"><div class="lbl-mini">The panel</div><p style="margin:6px 0 0;font-size:15px">GPT-4o, GPT-4o-mini, Claude Sonnet 4, DeepSeek-Chat. Three providers, two capability tiers. All run at temperature 0 for consistency.</p></div>
+      <div class="panel"><div class="lbl-mini">Claim-by-claim</div><p style="margin:6px 0 0;font-size:15px">Each answer is split into sentences; every sentence is checked separately (the <span class="defterm" data-def="FactScore-style evaluation: break an answer into atomic claims and verify each one independently, then report the fraction verified. More precise than judging a whole answer at once.">FactScore</span> idea). Score = fraction of claims that pass.</p></div>
+      <div class="panel"><div class="lbl-mini">Separated on purpose</div><p style="margin:6px 0 0;font-size:15px">The <strong>correctness</strong> judge sees the reference answer but <em>not</em> the retrieved context. The <strong>grounding</strong> judge sees the context but <em>not</em> the reference. Neither can fake one using the other.</p></div>
+    </div>
+    <div class="callout"><span class="tag">Why this matters for the whole paper</span>Because the two judges look at different evidence, “grounding” and “correctness” are genuinely different measurements — not two names for the same score. That separation is what makes the decoupling finding meaningful.</div>
+  </div>
+</section>
+
+<!-- ============ 05 RESULTS ============ -->
+<section class="band" id="results">
+  <div class="wrap">
+    <div class="kicker"><span class="num">05</span><span class="eyebrow">The evidence</span></div>
+    <h2 class="sec">Five ways of seeing the same result</h2>
+    <p class="lead">The claim — <em>grounding and correctness decouple; only DSPy lifts both</em> — is shown five independent ways. If one could be a fluke, all five agreeing can't.</p>
+
+    <!-- Evidence 1: plane -->
+    <div class="panel figure">
+      <div class="figtitle">Evidence 1 · The grounding × correctness map</div>
+      <div class="figsub">Each dot = one (pipeline, generator, k) setup. Hover any dot. Notice the shape: a wide horizontal spread, almost no vertical climb.</div>
+      <div class="legend" id="plane-legend"></div>
+      <div class="chartscroll"><div id="plane-full"></div></div>
+      <div class="figcap"><b>Read it like this:</b> moving <em>right</em> = more grounded. Moving <em>up</em> = more correct. The RAG dots form a flat band around 0.20 correctness while grounding ranges from ~0.35 to ~0.82. <b style="color:var(--pipe-dspy)">DSPy (violet)</b> is the only pipeline that reaches the upper-right — grounded <em>and</em> correct. <b style="color:var(--pipe-graph)">GraphRAG (green)</b> just shifts right, not up.</div>
+    </div>
+
+    <!-- Evidence 2: scorecard -->
+    <div class="panel figure">
+      <div class="figtitle">Evidence 2 · Pipeline scorecard (k = 3, averaged over generators)</div>
+      <div class="figsub">Going down the list, grounding jumps a lot; correctness barely moves — until DSPy.</div>
+      <div class="legend">
+        <span class="item"><span class="swatch" style="background:var(--grounding)"></span>Grounding</span>
+        <span class="item"><span class="swatch" style="background:var(--factual)"></span>Factual correctness</span>
+      </div>
+      <div id="scorecard"></div>
+      <div class="figcap">From Classic → GraphRAG, grounding rises <b>+0.12</b> but correctness only <b>+0.03</b>. From Classic → DSPy, correctness jumps <b>+0.10</b> <em>and</em> grounding <b>+0.30</b>. The gap between the blue and orange bars <em>is</em> the grounded-but-wrong gap.</div>
+    </div>
+
+    <!-- Evidence 3: bootstrap illusion -->
+    <div class="grid2" style="align-items:start">
+      <div class="panel figure">
+        <div class="figtitle">Evidence 3 · The GraphRAG “illusion”</div>
+        <div class="figsub">Same questions, same retriever — only Classic → GraphRAG changes. We measure the <em>paired</em> change per item, then bootstrap it.</div>
+        <div class="legend">
+          <span class="item"><span class="swatch" style="background:var(--grounding)"></span>Δ Grounding</span>
+          <span class="item"><span class="swatch" style="background:var(--factual)"></span>Δ Factual</span>
+        </div>
+        <div id="illusion"></div>
+        <div class="figcap">Bars are the average change when you switch to GraphRAG; whiskers are the <span class="defterm" data-def="A paired bootstrap resamples the matched item-differences 10,000 times to build a confidence interval. If the interval excludes zero, the effect is unlikely to be chance. '*' marks p < 0.05.">95% confidence interval</span>. <b style="color:var(--grounding)">Grounding</b> jumps and clears zero (real). <b style="color:var(--factual)">Correctness</b> hugs zero — and at k=5 on GPT-4o it goes <em>negative</em> (−0.048, significant). Grounding up, correctness flat-to-down.</div>
+      </div>
+      <div>
+        <h3 class="sub" style="margin-top:6px">Why “paired” is the trick</h3>
+        <p class="read">Comparing two averages can lie: maybe GraphRAG just got easier questions. Instead they compare each <em>identical question</em> answered both ways, and look at the difference. That rules out “luck of the draw.” The result: <strong>the very same items that gain grounding do not gain correctness.</strong> Since retrieval is shared, the split must come from the <em>generation</em> step, not from fetching better documents.</p>
+        <div class="note">
+          <div class="lbl-mini">Plain-language bootstrap</div>
+          A bootstrap is “reshuffle the data 10,000 times and see how often you'd get this result by chance.” If almost never (p &lt; 0.05, the <span class="mono">*</span>), the effect is trusted.
+        </div>
+      </div>
+    </div>
+
+    <!-- Evidence 4: judges mirror -->
+    <div class="panel figure">
+      <div class="figtitle">Evidence 4 · Even the judges agree more about grounding than about truth</div>
+      <div class="figsub">How much do the four judges agree with each other? Each row is a pair of judges. Farther right = more agreement (<span class="defterm" data-def="Spearman ρ (rho) measures how similarly two judges rank the answers, from 0 (no relation) to 1 (identical ranking). Higher = the two judges see the same thing.">Spearman ρ</span>).</div>
+      <div class="legend">
+        <span class="item"><span class="swatch" style="background:var(--grounding)"></span>Agreement on grounding</span>
+        <span class="item"><span class="swatch" style="background:var(--factual)"></span>Agreement on correctness</span>
+      </div>
+      <div id="judges"></div>
+      <div class="figcap">The blue dots sit right of the orange ones almost every time: judges agree on <em>what looks sourced</em> (ρ ≈ 0.64–0.85) more than on <em>what is true</em> (ρ ≈ 0.51–0.78). This is independent corroboration — truth is genuinely a harder, fuzzier target. GPT-4o-mini is the lenient outlier on correctness.</div>
+    </div>
+
+    <!-- Evidence 5: pareto -->
+    <div class="panel figure">
+      <div class="figtitle">Evidence 5 · Cost vs correctness — the deployment case</div>
+      <div class="figsub">Cheaper is left, more correct is up. The best options form the top-left frontier. Hover any point.</div>
+      <div class="legend" id="pareto-legend"></div>
+      <div class="chartscroll"><div id="pareto"></div></div>
+      <div class="figcap">Only <b style="color:var(--pipe-dspy)">DSPy</b> points sit on the frontier. DSPy at k=3 costs ~<b>$0.0024</b>/call and runs in <b>0.97s</b>; Classic RAG at the same k costs ~$0.0044 and takes 2.25s. So DSPy is ~1.8× cheaper, ~2.3× faster, <em>and</em> more correct. Every GraphRAG point is beaten by some DSPy point.</div>
+    </div>
+
+    <div class="callout"><span class="tag">So what closes the gap?</span>Not fetching <em>more</em> text (GraphRAG). It's <strong>structuring the prompt</strong> (DSPy). The authors' hypothesis: DSPy's rigid <span class="mono">context → question → answer</span> schema makes the model treat retrieved chunks as a <em>reference library to pick from</em>, rather than a story to keep writing — so it selects claims that are actually backed, instead of just plausible-sounding continuations.</p></div>
+  </div>
+</section>
+
+<!-- ============ 06 ROBUSTNESS ============ -->
+<section class="band" id="robust">
+  <div class="wrap">
+    <div class="kicker"><span class="num">06</span><span class="eyebrow">Stress tests</span></div>
+    <h2 class="sec">Does the pattern hold when you poke it?</h2>
+    <p class="lead">A finding is only trustworthy if it survives being sliced different ways — by k, by language, by difficulty — and if you can explain <em>why</em> individual answers win or lose.</p>
+
+    <div class="grid2">
+      <div class="panel figure">
+        <div class="figtitle">More context (k) lifts grounding, not correctness</div>
+        <div class="figsub">GPT-4o. Solid = correctness, dashed = grounding, as k goes 1 → 3 → 5.</div>
+        <div class="legend">
+          <span class="item"><span class="line-key" style="border-color:var(--factual)"></span>Factual (solid)</span>
+          <span class="item"><span class="line-key" style="border-color:var(--grounding);border-top-style:dashed"></span>Grounding (dashed)</span>
+        </div>
+        <div id="kabl"></div>
+        <div class="figcap">Grounding climbs with k for every pipeline. Correctness doesn't: GraphRAG even makes an <em>inverted-U</em>, dropping at k=5. DSPy at k=1 already beats Classic at k=5 on correctness — “compile the prompt” beats “retrieve 5× more.”</div>
+      </div>
+      <div class="panel figure">
+        <div class="figtitle">Split by difficulty — everything collapses on hard items</div>
+        <div class="figsub">Factual correctness only. Watch the hard bars.</div>
+        <div class="legend" id="diff-legend"></div>
+        <div id="diffbars"></div>
+        <div class="figcap">On <em>hard</em> questions every pipeline falls to ~0.02–0.08 correctness, even DSPy — yet grounding stays high. That's the danger zone: confident, well-cited, wrong. The gap is <em>widest</em> exactly where it's most harmful.</div>
+      </div>
+    </div>
+
+    <div class="note read" style="margin-top:20px">
+      <div class="lbl-mini">Language &amp; generators, briefly</div>
+      <strong>Language:</strong> grounding is <em>higher</em> in Macedonian (the model reuses the Macedonian source text) but correctness is flat or lower — so the split is if anything <em>sharper</em> in the low-resource language, not an English quirk.
+      <strong style="margin-left:8px">Generators:</strong> GPT-4o and Claude (49 paired items each) carry the headline; DeepSeek (only 4 items) is a small sanity check — same direction, too little data to be sure.
+    </div>
+
+    <h3 class="sub">The four failure modes (why answers win or lose)</h3>
+    <p class="read">They hand-examined the 10 items where GraphRAG and Classic disagree most, and sorted the reasons into four modes:</p>
+    <div class="grid2">
+      <div class="panel" style="border-left:3px solid var(--good)"><div class="lbl-mini"><span class="pill" style="color:var(--good)">M1</span>Synthesis benefit — GraphRAG wins</div><p style="margin:6px 0 0;font-size:15px">The answer needs several adjacent passages stitched together (e.g. the full list of a DMZ's roles). Graph expansion supplies the missing neighbours. This is GraphRAG working as intended.</p></div>
+      <div class="panel" style="border-left:3px solid var(--warn)"><div class="lbl-mini"><span class="pill" style="color:var(--warn)">M2</span>Context dilution — Classic wins</div><p style="margin:6px 0 0;font-size:15px">A simple lookup that one good chunk already answers. Graph expansion drags in extra text and <em>distracts</em> the model away from the exact fact.</p></div>
+      <div class="panel" style="border-left:3px solid var(--warn)"><div class="lbl-mini"><span class="pill" style="color:var(--warn)">M3</span>Enumeration dilution</div><p style="margin:6px 0 0;font-size:15px">The right answer is a fixed list (laws, steps). Extra context tempts the model to pad the list with invented items — worse in Macedonian, where its priors are weaker.</p></div>
+      <div class="panel" style="border-left:3px solid var(--crit)"><div class="lbl-mini"><span class="pill" style="color:var(--crit)">M4</span>Grounded-but-wrong — both fail</div><p style="margin:6px 0 0;font-size:15px">Both pipelines produce fluent, well-grounded answers (grounding ≥ 0.5) that are <em>still</em> mostly false (correctness &lt; 0.2). <strong>A grounding-only evaluation would call these a success.</strong> This is the whole paper's warning, made concrete.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 LIMITATIONS ============ -->
+<section class="band" id="limits">
+  <div class="wrap">
+    <div class="kicker"><span class="num">07</span><span class="eyebrow">For your professor</span></div>
+    <h2 class="sec">Limitations — and how to defend them</h2>
+    <p class="lead">This is the section examiners push on. The goal isn't to pretend the study is perfect — it's to show you <em>understand each limit, why the authors made that choice, and what it does (and doesn't) threaten.</em> Each card below: what it means, why it's OK, and a likely question with an answer.</p>
+    <div class="legend" style="margin-top:14px">
+      <span class="item"><span class="sev core">core threat</span> could undermine the main claim</span>
+      <span class="item"><span class="sev scope">scope</span> limits how far it generalises</span>
+      <span class="item"><span class="sev minor">contained</span> acknowledged, low risk</span>
+    </div>
+
+    <!-- L1 -->
+    <details class="lim" open>
+      <summary>
+        <span class="lnum">L1</span>
+        <span><span class="ltitle">The judges are AI, not humans <span class="sev core">core threat</span></span><span class="lsum">Every score comes from LLM judges, never validated against a human-annotated subset.</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>The two headline metrics (grounding, correctness) are produced by four language models. No human went back and confirmed a sample of those scores, so in principle the whole ranking could reflect what <em>models</em> think is correct, not what <em>is</em> correct.</div>
+        <div><div class="lbl-mini">Why the authors say it's acceptable</div>They call it a <em>deliberate scope choice</em>, not a forgotten step. Their defence has three parts: (1) they use a <strong>diverse 4-model panel</strong> across 3 providers, so no single model's bias dominates; (2) they <strong>report inter-judge agreement for every number</strong> instead of hiding it — and that agreement gap is itself a finding; (3) at 3,509 judgments, a multi-judge panel is “the minimum defensible substitute for human anchoring” at that scale.</div>
+        <div><div class="lbl-mini">Why it doesn't sink the main claim</div>The central result is a <em>relative</em> one: grounding rises while correctness doesn't, <em>on the same judges</em>. Even a biased judge, applied equally to both pipelines, would still reveal the decoupling. The bias would have to be different for grounding vs correctness in a very specific way to fake this — and the judge-agreement split is independent evidence that it isn't.</div>
+        <div class="qa"><div class="q">Q: “Aren't you just measuring what GPT-4o believes, not the truth?”</div><div class="a">A: For <em>absolute</em> scores, partly yes — that's why we never claim an absolute accuracy number is authoritative. But the finding is a paired, relative comparison under identical judges, so a shared judge bias cancels out. And the fix is already named as future work #1: a human-annotated calibration subset.</div></div>
+      </div>
+    </details>
+
+    <!-- L2 -->
+    <details class="lim">
+      <summary>
+        <span class="lnum">L2</span>
+        <span><span class="ltitle">Only 80 questions <span class="sev scope">scope</span></span><span class="lsum">Small benchmark; some cells (especially hard items, DeepSeek) have little data.</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>80 items is small next to benchmarks with thousands. Statistical power on sub-slices (hard-only, Macedonian-only) is limited, and DeepSeek only has 4 paired items — too few to conclude anything on its own.</div>
+        <div><div class="lbl-mini">Why the authors say it's acceptable</div>The size buys <em>depth</em>: 16 judgments per (item, pipeline) cell across the full grid. Bigger benchmarks trade that multi-judge depth for scale. The main effects (grounding lift, DSPy dominance) still reach significance at n = 49 paired items on the two headline models, via the paired bootstrap.</div>
+        <div><div class="lbl-mini">Honest residual risk</div>The <em>hard-item</em> conclusions are the weakest — that's exactly where correctness collapses and where more data is most wanted. The authors flag “a larger benchmark tilted toward hard items” as future work, and treat DeepSeek explicitly as a qualitative probe, never a headline number.</div>
+        <div class="qa"><div class="q">Q: “Is 80 enough to trust?”</div><div class="a">A: For the headline paired comparisons on GPT-4o and Claude, yes — the bootstrap confidence intervals exclude zero. For fine-grained slices and DeepSeek, no, and we say so rather than over-claiming. Scaling is “budget-linear,” i.e. just expensive, not hard.</div></div>
+      </div>
+    </details>
+
+    <!-- L3 -->
+    <details class="lim">
+      <summary>
+        <span class="lnum">L3</span>
+        <span><span class="ltitle">DSPy vs Classic changes two things at once <span class="sev core">core threat</span></span><span class="lsum">DSPy is both <em>structured</em> and <em>terser</em> — so which one causes the win?</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>Compared to Classic RAG, the DSPy prompt differs in <strong>two</strong> ways: it's structured (an explicit context/question/answer schema) <em>and</em> it drops the long “cybersecurity analyst” persona wrapper (it's shorter). The experiment has no “Classic-but-short” control, so we can't cleanly say whether structure or brevity carries the improvement.</div>
+        <div><div class="lbl-mini">Why the authors say it's acceptable</div>They are careful with the wording: they claim the <em>bundle</em> (structure + minimal prompt) closes the gap at their operating point — they do <strong>not</strong> claim to have isolated the mechanism. This is the intellectually honest move: don't over-attribute.</div>
+        <div><div class="lbl-mini">Why it's a real limitation, not a fatal one</div>It doesn't threaten the decoupling finding (that's about GraphRAG, not DSPy). It only limits how precisely we can explain <em>why</em> DSPy wins. Future work #5 is the exact fix: a 4-cell control {Classic-long, Classic-minimal, DSPy-long, DSPy-minimal} to separate the two effects.</div>
+        <div class="qa"><div class="q">Q: “Maybe DSPy just wins because its prompt is shorter?”</div><div class="a">A: Possibly — that's the honest answer, and it's why we frame it as “structure + brevity as a bundle.” The paper's stronger, separable claim is the negative one about GraphRAG; the DSPy result is a strong positive lead that needs the ablation to fully explain.</div></div>
+      </div>
+    </details>
+
+    <!-- L4 -->
+    <details class="lim">
+      <summary>
+        <span class="lnum">L4</span>
+        <span><span class="ltitle">DSPy only ran on GPT-4o <span class="sev scope">scope</span></span><span class="lsum">The star pipeline was tested with one model, for tooling reasons.</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>DSPy — the pipeline that “wins” — was only run with GPT-4o, because the DSPy runtime at the time needed a specific <span class="mono">openai/&lt;model&gt;</span> configuration and stable adapter support. So we can't be sure the DSPy advantage transfers to Claude or DeepSeek.</div>
+        <div><div class="lbl-mini">Why it's contained</div>The paper's <em>main</em> claim (grounding ≠ correctness under GraphRAG) is shown on <strong>both</strong> GPT-4o and Claude, so it can't be a DSPy-or-OpenAI artifact. DSPy is presented as “the resolution on this benchmark,” explicitly not “the globally best pipeline.”</div>
+        <div class="qa"><div class="q">Q: “How do you know DSPy isn't just GPT-4o being good?”</div><div class="a">A: We don't fully — that's the limit. But the <em>decoupling</em> that DSPy resolves is visible across two model families, so the phenomenon is real independent of DSPy. Cross-model DSPy replication is named future work #4.</div></div>
+      </div>
+    </details>
+
+    <!-- L5 -->
+    <details class="lim">
+      <summary>
+        <span class="lnum">L5</span>
+        <span><span class="ltitle">The mechanism is a hypothesis, not proof <span class="sev minor">contained</span></span><span class="lsum">“Why” DSPy helps is an argued conjecture, not a demonstrated cause.</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>The explanation — that structure makes the model “select from a reference library rather than continue a story” — is a plausible <em>hypothesis</em> consistent with the data, but not directly demonstrated. Proving it needs looking inside the model (attention patterns, attribution patching).</div>
+        <div><div class="lbl-mini">Why it's acceptable</div>The empirical pattern stands on its own regardless of the mechanism. The authors clearly label it a hypothesis and list the instrumentation needed to upgrade it (future work #6). Good science: separate <em>what happened</em> (solid) from <em>why</em> (proposed).</div>
+        <div class="qa"><div class="q">Q: “Can you prove that's why DSPy works?”</div><div class="a">A: Not yet — it's our best explanation and it fits every slice of the data, but confirming it requires mechanistic (inside-the-model) analysis, which we scope as future work.</div></div>
+      </div>
+    </details>
+
+    <!-- L6 -->
+    <details class="lim">
+      <summary>
+        <span class="lnum">L6</span>
+        <span><span class="ltitle">Narrow domain, two languages, one retriever, no graph sweep <span class="sev scope">scope</span></span><span class="lsum">Cybersecurity only; EN+MK only; fixed embedder; GraphRAG's knobs weren't fully explored.</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="body">
+        <div><div class="lbl-mini">What it means</div>Four smaller boundaries bundled: (a) one domain (cybersecurity); (b) two languages, not broad multilingual; (c) a single embedding model (<span class="mono">MiniLM-L12-v2</span>); (d) GraphRAG's <span class="mono">τ</span> (similarity threshold) and expansion budget weren't swept — one setting (τ=0.8, 10 nodes) was used for the headline.</div>
+        <div><div class="lbl-mini">Why the authors say it's acceptable</div>They argue the mechanism should appear wherever three conditions hold: a <em>redundant</em> knowledge base (legal, medical, technical manuals all qualify), a mix of synthesis + lookup questions, and a capable-enough generator. Where those hold, expect the same split. Where they don't (e.g. one gold passage per question), it should fade. The graph sweep is anchored by <em>paired</em> Classic-vs-Graph deltas at a fixed setting, so it doesn't depend on the un-run sweep.</div>
+        <div class="qa"><div class="q">Q: “Would this replicate outside cybersecurity / with a bigger graph?”</div><div class="a">A: We predict yes for any redundant, high-stakes corpus, and give the falsifiable conditions. The full graph-topology heatmap is future work #2 — but our claim rests on matched-pair deltas, not on having found GraphRAG's best settings.</div></div>
+      </div>
+    </details>
+
+    <div class="callout" style="margin-top:26px"><span class="tag">The 30-second version for the exam</span>The one limitation that could actually wound the study is <strong>L1 (AI judges)</strong> — and the defence is that the finding is a <em>paired, relative</em> comparison under <em>identical</em> judges, plus the judge-agreement split is independent evidence. Everything else (80 items, DSPy-only-GPT-4o, structure-vs-brevity, mechanism-as-hypothesis) limits <em>scope or precision</em>, not the core decoupling claim — and each has a named future-work fix.</div>
+  </div>
+</section>
+
+<!-- ============ 08 CODE ============ -->
+<section class="band" id="code">
+  <div class="wrap">
+    <div class="kicker"><span class="num">08</span><span class="eyebrow">The repository</span></div>
+    <h2 class="sec">How the code produces the paper</h2>
+    <p class="lead">The repo is two things: a working cybersecurity Q&amp;A <strong>app</strong> (FastAPI + Gradio), and a <strong>research pipeline</strong> that runs the whole experiment end-to-end. Every figure in the paper is reproducible by running these steps in order.</p>
+
+    <div class="codeflow">
+      <div class="cstep"><div class="n">1</div><div><div class="ct">Build the search index</div><div class="cd"><code>rag/create_database.py</code> chops the 49 PDFs into ≈8,250 chunks and embeds them into a Chroma vector database. <code>rag/graph/build_graph.py</code> then builds the chunk graphs (three similarity thresholds for the ablation).</div><div class="cprod">→ the shared retrieval substrate everything else uses</div></div></div>
+      <div class="cstep"><div class="n">2</div><div><div class="ct">Create the benchmark</div><div class="cd"><code>bench/generate_questions.py</code> drafts Q&amp;A from chunks; <code>bench/populate_reference_doc_ids.py</code> maps each item to its reference chunks. Humans then edit the result into <code>data/benchmark.jsonl</code> (80 items).</div><div class="cprod">→ SENTINEL-QA (§3, Table 1)</div></div></div>
+      <div class="cstep"><div class="n">3</div><div><div class="ct">Generate answers</div><div class="cd"><code>bench/run_benchmark.py</code> runs the four pipelines in <code>rag/pipelines.py</code> across 3 generators × k ∈ {1,3,5}. Mode strings like <code>rag_graph:openai:k=5:mn=10</code> encode the full config. Fully resumable.</div><div class="cprod">→ raw answers for all 21 RAG configs (§4)</div></div></div>
+      <div class="cstep"><div class="n">4</div><div><div class="ct">Judge every answer</div><div class="cd"><code>bench/meta_eval.py</code> runs the 4-judge panel using <code>judge_prompt_ground.py</code> and <code>judge_prompt_factual.py</code>, scoring grounding + correctness claim-by-claim. 3,509 judgments; grounding skipped for zero-shot.</div><div class="cprod">→ the evaluation grid (§4)</div></div></div>
+      <div class="cstep"><div class="n">5</div><div><div class="ct">Analyse &amp; test</div><div class="cd"><code>analyze_judgements.py</code> aggregates; <code>metrics.py</code> computes P@k / Hit@k, latency &amp; cost; <code>bootstrap_tests.py</code> runs the 10,000-resample paired tests; <code>error_analysis.py</code> builds the M1–M4 case studies.</div><div class="cprod">→ Tables 2–5, the numbers behind every claim</div></div></div>
+      <div class="cstep"><div class="n">6</div><div><div class="ct">Draw the figures</div><div class="cd"><code>bench/figures.py</code> and <code>bench/tables.py</code> emit every PDF figure and LaTeX table straight into the paper folder.</div><div class="cprod">→ Figures 1–6 + supplements</div></div></div>
+    </div>
+
+    <div class="grid2" style="margin-top:22px">
+      <div class="note"><div class="lbl-mini">Supporting modules</div><ul class="clean" style="font-size:14.5px">
+        <li><code>rag/config.py</code> — all keys, model names, paths</li>
+        <li><code>rag/llm_factory.py</code> — one factory for OpenAI / Claude / Gemini / DeepSeek</li>
+        <li><code>rag/retrieval.py</code> — the shared top-k vector search</li>
+        <li><code>rag/graph/expand.py</code> — the graph neighbour-expansion step</li>
+        <li><code>rag/prompts.py</code> — the shared multilingual prompt template</li>
+      </ul></div>
+      <div class="note"><div class="lbl-mini">The app side (the “product”)</div><ul class="clean" style="font-size:14.5px">
+        <li><code>main.py</code> / <code>backend.py</code> — FastAPI service</li>
+        <li><code>ui_gradio.py</code> — the research chat UI</li>
+        <li><code>Dockerfile</code> — containerised deploy</li>
+      </ul><p style="margin:10px 0 0;font-size:14px" class="muted">The research pipeline (<code>bench/</code>) and the app (<code>main.py</code>) share the same <code>rag/</code> core — so what you benchmark is what you'd ship.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 CHEAT SHEET ============ -->
+<section class="band" id="cheat">
+  <div class="wrap">
+    <div class="kicker"><span class="num">09</span><span class="eyebrow">One-page recall</span></div>
+    <h2 class="sec">Exam cheat-sheet</h2>
+    <div class="grid2">
+      <div class="panel">
+        <div class="lbl-mini">The claim, three sentences</div>
+        <p style="font-size:15.5px;margin:8px 0 0">In cybersecurity RAG, <strong>grounding and factual correctness decouple</strong>. GraphRAG reliably raises grounding (+0.09 to +0.14) but leaves correctness flat — and at k=5 <em>lowers</em> it (−0.05). <strong>DSPy (structured prompting) is the only pipeline that raises both</strong>, while being cheaper and faster.</p>
+        <div class="lbl-mini" style="margin-top:18px">The takeaway</div>
+        <p style="font-size:15.5px;margin:8px 0 0">Grounding alone is <strong>not a safe proxy</strong> for correctness. Report both, with judge-agreement and paired statistics. To improve faithfulness, <strong>compile the prompt, don't just expand retrieval.</strong></p>
+      </div>
+      <div class="panel">
+        <div class="lbl-mini">Term → plain meaning</div>
+        <div class="tablewrap" style="margin-top:8px;border:none">
+          <table>
+            <tbody>
+              <tr><td><b>Grounding</b></td><td style="text-align:left;white-space:normal">answer matches its sources (looks sourced)</td></tr>
+              <tr><td><b>Factual correctness</b></td><td style="text-align:left;white-space:normal">answer matches the true reference (is right)</td></tr>
+              <tr><td><b>Hallucination</b></td><td style="text-align:left;white-space:normal">a claim with no source support (1 − grounding)</td></tr>
+              <tr><td><b>k</b></td><td style="text-align:left;white-space:normal">how many chunks fed to the model</td></tr>
+              <tr><td><b>Hit@k</b></td><td style="text-align:left;white-space:normal">was a right chunk in the top k (retrieval ceiling)</td></tr>
+              <tr><td><b>Paired bootstrap</b></td><td style="text-align:left;white-space:normal">resample matched item-differences to test significance</td></tr>
+              <tr><td><b>Spearman ρ</b></td><td style="text-align:left;white-space:normal">how similarly two judges rank answers</td></tr>
+              <tr><td><b>Pareto frontier</b></td><td style="text-align:left;white-space:normal">options nothing else beats on both cost & correctness</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="divider-note">— you now understand the whole study —</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap read">
+    An interactive explainer of <em>“The Grounded-but-Wrong Gap in Cybersecurity RAG: Evidence from a Bilingual Benchmark and Multi-Judge Evaluation.”</em>
+    All numbers are taken directly from the paper's tables and sections. Charts are hand-built; hover any mark for the underlying value. Built to be read in either light or dark theme.
+  </div>
+</footer>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ THEME TOGGLE ============ */
+(function(){
+  const btn=document.getElementById('themebtn');
+  btn.addEventListener('click',()=>{
+    const cur=document.documentElement.getAttribute('data-theme');
+    const sysDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let next;
+    if(cur) next = cur==='dark'?'light':'dark';
+    else next = sysDark?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    setTimeout(drawAll,30);
+  });
+})();
+
+/* ============ TOOLTIP ============ */
+const tip=document.getElementById('tip');
+function showTip(html,x,y){
+  tip.innerHTML=html;tip.style.opacity='1';
+  const r=tip.getBoundingClientRect();
+  let nx=x+14, ny=y+14;
+  if(nx+r.width>window.innerWidth-8) nx=x-r.width-14;
+  if(ny+r.height>window.innerHeight-8) ny=y-r.height-14;
+  tip.style.left=nx+'px';tip.style.top=ny+'px';
+}
+function hideTip(){tip.style.opacity='0';}
+document.addEventListener('mouseover',e=>{
+  const t=e.target.closest('[data-tip]');
+  if(t) showTip(t.getAttribute('data-tip'),e.clientX,e.clientY);
+});
+document.addEventListener('mousemove',e=>{
+  const t=e.target.closest('[data-tip]');
+  if(t) showTip(t.getAttribute('data-tip'),e.clientX,e.clientY);
+  else if(tip.style.opacity==='1' && !e.target.closest('#tip')) hideTip();
+});
+document.addEventListener('mouseout',e=>{const t=e.target.closest('[data-tip]');if(t)hideTip();});
+
+/* definition terms reuse tooltip */
+document.querySelectorAll('.defterm').forEach(el=>{
+  el.setAttribute('data-tip','<span class="tt">definition</span>'+el.getAttribute('data-def'));
+});
+
+/* ============ CSS VAR HELPER ============ */
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ============ DATA ============ */
+// main grid: pipe, gen, k, f(actual), g(rounding|null), h(alluc), lat, cost
+const GRID=[
+ ['zero','openai',null,0.169,null,null,2.81,0.0035],
+ ['zero','anthropic',null,0.150,null,null,9.19,0.0067],
+ ['zero','deepseek',null,0.121,null,null,11.09,0.0007],
+ ['classic','openai',1,0.234,0.351,0.649,2.21,0.0035],
+ ['classic','openai',3,0.232,0.495,0.505,2.25,0.0044],
+ ['classic','openai',5,0.252,0.520,0.480,2.22,0.0052],
+ ['classic','anthropic',1,0.209,0.383,0.617,8.89,0.0073],
+ ['classic','anthropic',3,0.179,0.505,0.495,16.68,0.0090],
+ ['classic','anthropic',5,0.200,0.548,0.452,9.38,0.0104],
+ ['classic','deepseek',1,0.270,0.465,0.535,9.72,0.0006],
+ ['classic','deepseek',3,0.183,0.578,0.422,10.89,0.0008],
+ ['classic','deepseek',5,0.205,0.671,0.329,11.74,0.0009],
+ ['dspy','openai',1,0.359,0.639,0.361,1.06,0.0015],
+ ['dspy','openai',3,0.308,0.787,0.213,0.97,0.0024],
+ ['dspy','openai',5,0.337,0.816,0.184,0.96,0.0034],
+ ['graph','openai',1,0.234,0.469,0.531,2.35,0.0052],
+ ['graph','openai',3,0.284,0.583,0.417,2.92,0.0068],
+ ['graph','openai',5,0.204,0.538,0.462,2.33,0.0072],
+ ['graph','anthropic',1,0.200,0.516,0.484,9.15,0.0100],
+ ['graph','anthropic',3,0.209,0.636,0.364,9.35,0.0125],
+ ['graph','anthropic',5,0.181,0.584,0.416,9.32,0.0133],
+ ['graph','deepseek',1,0.115,0.532,0.468,10.91,0.0009],
+ ['graph','deepseek',3,0.174,0.691,0.309,11.78,0.0011],
+ ['graph','deepseek',5,0.200,0.610,0.390,12.24,0.0012],
+];
+const PIPE={zero:{name:'Zero-shot',c:'--pipe-zero'},classic:{name:'Classic RAG',c:'--pipe-classic'},
+  graph:{name:'GraphRAG',c:'--pipe-graph'},dspy:{name:'DSPy RAG',c:'--pipe-dspy'}};
+const GENNAME={openai:'GPT-4o',anthropic:'Claude Sonnet 4',deepseek:'DeepSeek-Chat'};
+
+/* ============ SVG UTILITIES ============ */
+const NS='http://www.w3.org/2000/svg';
+function svg(w,h){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  s.setAttribute('class','chart');s.setAttribute('width','100%');s.setAttribute('preserveAspectRatio','xMidYMid meet');return s;}
+function el(tag,at){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);return e;}
+function txt(x,y,s,cls,anchor){const t=el('text',{x,y,class:cls||'tick','text-anchor':anchor||'middle'});t.textContent=s;return t;}
+function mount(id,node){const c=document.getElementById(id);if(c){c.innerHTML='';c.appendChild(node);}}
+
+/* ============ 1. PLANE (scatter grounding x, factual y) ============ */
+function planeChart(id,{compact=false}={}){
+  const W=compact?440:760, H=compact?300:460;
+  const m={l:56,r:20,t:16,b:52};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xmin=0.3,xmax=0.86,ymin=0.08,ymax=0.40;
+  const sx=v=>m.l+(v-xmin)/(xmax-xmin)*iw;
+  const sy=v=>m.t+ih-(v-ymin)/(ymax-ymin)*ih;
+  const s=svg(W,H);
+  // gridlines
+  for(let gx=0.3;gx<=0.86;gx+=0.1){
+    s.appendChild(el('line',{x1:sx(gx),y1:m.t,x2:sx(gx),y2:m.t+ih,class:'gridline'}));
+    s.appendChild(txt(sx(gx),m.t+ih+16,gx.toFixed(1),'tick'));
+  }
+  for(let gy=0.1;gy<=0.4;gy+=0.1){
+    s.appendChild(el('line',{x1:m.l,y1:sy(gy),x2:m.l+iw,y2:sy(gy),class:'gridline'}));
+    s.appendChild(txt(m.l-10,sy(gy)+3.5,gy.toFixed(1),'tick','end'));
+  }
+  s.appendChild(el('line',{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih,class:'axisline'}));
+  s.appendChild(el('line',{x1:m.l,y1:m.t+ih,x2:m.l+iw,y2:m.t+ih,class:'axisline'}));
+  // axis titles
+  s.appendChild(txt(m.l+iw/2,H-6,'GROUNDING  (looks sourced) →','ax-title'));
+  const yt=txt(0,0,'FACTUAL CORRECTNESS (is true) →','ax-title');
+  yt.setAttribute('transform',`translate(14,${m.t+ih/2}) rotate(-90)`);s.appendChild(yt);
+  // zeroshot floor line (avg factual ~0.147) annotation
+  const zf=0.147;
+  s.appendChild(el('line',{x1:m.l,y1:sy(zf),x2:m.l+iw,y2:sy(zf),stroke:css('--pipe-zero'),'stroke-width':1.4,'stroke-dasharray':'5 5',opacity:.85}));
+  if(!compact){const zt=txt(m.l+iw-4,sy(zf)-7,'zero-shot floor (no retrieval)','tick','end');zt.setAttribute('fill',css('--pipe-zero'));s.appendChild(zt);}
+  // points (RAG only, have grounding)
+  GRID.filter(r=>r[4]!=null).forEach(r=>{
+    const[p,gen,k,f,g]=r;
+    const c=css(PIPE[p].c);
+    const cx=sx(g),cy=sy(f);
+    const grp=el('g',{class:'mk'});
+    grp.appendChild(el('circle',{cx,cy,r:compact?5:6.5,fill:c,'fill-opacity':.9,stroke:css('--surface'),'stroke-width':2}));
+    grp.setAttribute('data-tip',`<span class="tt">${PIPE[p].name} · ${GENNAME[gen]} · k=${k}</span>Grounding <b>${g.toFixed(3)}</b> · Factual <b>${f.toFixed(3)}</b>`);
+    s.appendChild(grp);
+  });
+  // DSPy callout (only in full)
+  if(!compact){
+    const dspy5=GRID.find(r=>r[0]==='dspy'&&r[2]===5);
+    const cx=sx(dspy5[4]),cy=sy(dspy5[3]);
+    s.appendChild(el('line',{x1:cx-4,y1:cy-8,x2:cx-40,y2:cy-30,stroke:css('--pipe-dspy'),'stroke-width':1.2}));
+    const lab=txt(cx-44,cy-33,'DSPy: grounded AND correct','tick','end');lab.setAttribute('fill',css('--pipe-dspy'));lab.setAttribute('font-weight','700');s.appendChild(lab);
+  }
+  mount(id,s);
+}
+
+/* legend builder */
+function pipeLegend(id,which){
+  const c=document.getElementById(id);if(!c)return;c.innerHTML='';
+  which.forEach(p=>{
+    const sp=document.createElement('span');sp.className='item';
+    sp.innerHTML=`<span class="swatch" style="background:${css(PIPE[p].c)}"></span>${PIPE[p].name}`;
+    c.appendChild(sp);
+  });
+}
+
+/* ============ 2. SCORECARD grouped bars ============ */
+const SCORE=[ // pipeline, grounding(k=3 avg), factual(k=3 avg) — from paper §6.2
+  ['zero',null,0.16],['classic',0.49,0.21],['graph',0.61,0.24],['dspy',0.79,0.31]
+];
+function scorecard(id){
+  const W=760,H=300,m={l:96,r:24,t:12,b:40};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const rows=SCORE.length, bandH=ih/rows;
+  const max=0.9;
+  const sx=v=>m.l+v/max*iw;
+  const s=svg(W,H);
+  for(let gx=0;gx<=0.8;gx+=0.2){
+    s.appendChild(el('line',{x1:sx(gx),y1:m.t,x2:sx(gx),y2:m.t+ih,class:'gridline'}));
+    s.appendChild(txt(sx(gx),m.t+ih+16,gx.toFixed(1),'tick'));
+  }
+  s.appendChild(el('line',{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih,class:'axisline'}));
+  const gc=css('--grounding'),fc=css('--factual');
+  SCORE.forEach((r,i)=>{
+    const[p,g,f]=r;
+    const yTop=m.t+i*bandH+8;
+    const bh=Math.min(20,(bandH-24)/2);
+    s.appendChild(txt(m.l-12,yTop+bh+2,PIPE[p].name,'tick','end'));
+    // grounding bar
+    if(g!=null){
+      const g1=el('g',{class:'mk'});
+      g1.appendChild(roundBar(m.l,yTop,sx(g)-m.l,bh,gc));
+      g1.appendChild(txt(sx(g)+6,yTop+bh-3,g.toFixed(2),'tick','start'));
+      g1.setAttribute('data-tip',`<span class="tt">${PIPE[p].name}</span>Grounding <b>${g.toFixed(2)}</b>`);
+      s.appendChild(g1);
+    } else {
+      const na=txt(m.l+4,yTop+bh-3,'no grounding (no retrieval)','tick','start');na.setAttribute('fill',css('--muted'));s.appendChild(na);
+    }
+    // factual bar (below), 2px gap
+    const y2=yTop+bh+2;
+    const f1=el('g',{class:'mk'});
+    f1.appendChild(roundBar(m.l,y2,sx(f)-m.l,bh,fc));
+    f1.appendChild(txt(sx(f)+6,y2+bh-3,f.toFixed(2),'tick','start'));
+    f1.setAttribute('data-tip',`<span class="tt">${PIPE[p].name}</span>Factual correctness <b>${f.toFixed(2)}</b>`);
+    s.appendChild(f1);
+  });
+  mount(id,s);
+}
+function roundBar(x,y,w,h,fill){ // 4px rounded data-end, square at baseline(left)
+  w=Math.max(w,0.5);const r=Math.min(4,w,h/2);
+  const p=el('path',{d:`M${x},${y} H${x+w-r} Q${x+w},${y} ${x+w},${y+r} V${y+h-r} Q${x+w},${y+h} ${x+w-r},${y+h} H${x} Z`,fill});
+  return p;
+}
+
+/* ============ 3. ILLUSION paired deltas (openai + anthropic) ============ */
+const BOOT=[ // gen,k,dG,ciG,sigG,dF,ciF,sigF
+ ['openai',1,0.118,[0.065,0.174],1,-0.001,[-0.034,0.032],0],
+ ['openai',3,0.086,[0.034,0.139],1,0.049,[0.012,0.088],1],
+ ['openai',5,0.015,[-0.040,0.070],0,-0.048,[-0.089,-0.010],1],
+ ['anthropic',1,0.142,[0.083,0.204],1,-0.010,[-0.045,0.026],0],
+ ['anthropic',3,0.133,[0.087,0.178],1,0.030,[-0.008,0.068],0],
+ ['anthropic',5,0.038,[-0.016,0.088],0,-0.020,[-0.055,0.014],0],
+];
+function illusion(id){
+  const W=520,H=420,m={l:118,r:24,t:14,b:44};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xmin=-0.08,xmax=0.22;
+  const sx=v=>m.l+(v-xmin)/(xmax-xmin)*iw;
+  const rows=BOOT.length, bandH=ih/rows;
+  const s=svg(W,H);
+  // gridlines
+  for(let gx=-0.05;gx<=0.2;gx+=0.05){
+    const isZero=Math.abs(gx)<1e-9;
+    s.appendChild(el('line',{x1:sx(gx),y1:m.t,x2:sx(gx),y2:m.t+ih,stroke:isZero?css('--axis'):css('--grid'),'stroke-width':isZero?1.4:1}));
+    s.appendChild(txt(sx(gx),m.t+ih+16,(gx>0?'+':'')+gx.toFixed(2),'tick'));
+  }
+  const gc=css('--grounding'),fc=css('--factual');
+  BOOT.forEach((r,i)=>{
+    const[gen,k,dG,ciG,sigG,dF,ciF,sigF]=r;
+    const yc=m.t+i*bandH+bandH/2;
+    s.appendChild(txt(m.l-12,yc-2,`${GENNAME[gen]}`,'tick','end'));
+    s.appendChild(txt(m.l-12,yc+12,`k=${k}`,'tick','end'));
+    plotDelta(s,dG,ciG,sigG,gc,yc-9,`${GENNAME[gen]} k=${k} · Δ Grounding`);
+    plotDelta(s,dF,ciF,sigF,fc,yc+9,`${GENNAME[gen]} k=${k} · Δ Factual`);
+  });
+  // axis title
+  s.appendChild(txt(m.l+iw/2,H-4,'change vs Classic RAG  (0 = no change)','ax-title'));
+  mount(id,s);
+  function plotDelta(s,d,ci,sig,c,y,lbl){
+    const g=el('g',{class:'mk'});
+    g.appendChild(el('line',{x1:sx(ci[0]),y1:y,x2:sx(ci[1]),y2:y,stroke:c,'stroke-width':2,opacity:.5,'stroke-linecap':'round'}));
+    g.appendChild(el('circle',{cx:sx(d),cy:y,r:5,fill:c,stroke:css('--surface'),'stroke-width':2}));
+    if(sig){const st=txt(sx(ci[1])+8,y+4,'✱','tick','start');st.setAttribute('fill',c);st.setAttribute('font-size','12');g.appendChild(st);}
+    g.setAttribute('data-tip',`<span class="tt">${lbl}</span>Δ <b>${(d>0?'+':'')+d.toFixed(3)}</b> · 95% CI [${ci[0].toFixed(3)}, ${ci[1].toFixed(3)}]${sig?' · <b>significant</b>':' · n.s.'}`);
+    s.appendChild(g);
+  }
+}
+
+/* ============ 4. JUDGES dumbbell ============ */
+const JUDGE=[ // A,B,ground,factual
+ ['Claude','DeepSeek',0.851,0.693],
+ ['Claude','GPT-4o',0.816,0.699],
+ ['DeepSeek','GPT-4o',0.771,0.782],
+ ['GPT-4o','GPT-4o-mini',0.680,0.632],
+ ['Claude','GPT-4o-mini',0.652,0.511],
+ ['DeepSeek','GPT-4o-mini',0.639,0.580],
+];
+function judges(id){
+  const W=760,H=330,m={l:150,r:60,t:14,b:40};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xmin=0.45,xmax=0.9;
+  const sx=v=>m.l+(v-xmin)/(xmax-xmin)*iw;
+  const rows=JUDGE.length, bandH=ih/rows;
+  const s=svg(W,H);
+  for(let gx=0.5;gx<=0.9;gx+=0.1){
+    s.appendChild(el('line',{x1:sx(gx),y1:m.t,x2:sx(gx),y2:m.t+ih,class:'gridline'}));
+    s.appendChild(txt(sx(gx),m.t+ih+16,gx.toFixed(1),'tick'));
+  }
+  s.appendChild(el('line',{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih,class:'axisline'}));
+  const gc=css('--grounding'),fc=css('--factual');
+  JUDGE.forEach((r,i)=>{
+    const[a,b,g,f]=r;const yc=m.t+i*bandH+bandH/2;
+    s.appendChild(txt(m.l-12,yc+3.5,`${a} ↔ ${b}`,'tick','end'));
+    // connector
+    s.appendChild(el('line',{x1:sx(Math.min(g,f)),y1:yc,x2:sx(Math.max(g,f)),y2:yc,stroke:css('--hair-2'),'stroke-width':2}));
+    const df=el('g',{class:'mk'});
+    df.appendChild(el('circle',{cx:sx(f),cy:yc,r:5.5,fill:fc,stroke:css('--surface'),'stroke-width':2}));
+    df.setAttribute('data-tip',`<span class="tt">${a} ↔ ${b}</span>Agreement on <b>correctness</b>: ρ = <b>${f.toFixed(3)}</b>`);
+    const dg=el('g',{class:'mk'});
+    dg.appendChild(el('circle',{cx:sx(g),cy:yc,r:5.5,fill:gc,stroke:css('--surface'),'stroke-width':2}));
+    dg.setAttribute('data-tip',`<span class="tt">${a} ↔ ${b}</span>Agreement on <b>grounding</b>: ρ = <b>${g.toFixed(3)}</b>`);
+    s.appendChild(df);s.appendChild(dg);
+  });
+  s.appendChild(txt(m.l+iw/2,H-4,'inter-judge agreement  (Spearman ρ) →','ax-title'));
+  mount(id,s);
+}
+
+/* ============ 5. PARETO scatter (cost log x, factual y) ============ */
+function pareto(id){
+  const W=760,H=440,m={l:56,r:24,t:16,b:52};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const rows=GRID.filter(r=>r[2]!=null); // RAG configs (21)
+  const xmin=Math.log10(0.0005),xmax=Math.log10(0.02);
+  const ymin=0.08,ymax=0.40;
+  const sx=v=>m.l+(Math.log10(v)-xmin)/(xmax-xmin)*iw;
+  const sy=v=>m.t+ih-(v-ymin)/(ymax-ymin)*ih;
+  const s=svg(W,H);
+  const ticks=[0.0005,0.001,0.002,0.005,0.01,0.02];
+  ticks.forEach(t=>{
+    s.appendChild(el('line',{x1:sx(t),y1:m.t,x2:sx(t),y2:m.t+ih,class:'gridline'}));
+    s.appendChild(txt(sx(t),m.t+ih+16,'$'+t.toFixed(4).replace(/0+$/,'').replace(/\.$/,'.0'),'tick'));
+  });
+  for(let gy=0.1;gy<=0.4;gy+=0.1){
+    s.appendChild(el('line',{x1:m.l,y1:sy(gy),x2:m.l+iw,y2:sy(gy),class:'gridline'}));
+    s.appendChild(txt(m.l-10,sy(gy)+3.5,gy.toFixed(1),'tick','end'));
+  }
+  s.appendChild(el('line',{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih,class:'axisline'}));
+  s.appendChild(el('line',{x1:m.l,y1:m.t+ih,x2:m.l+iw,y2:m.t+ih,class:'axisline'}));
+  s.appendChild(txt(m.l+iw/2,H-6,'← cheaper     cost per call (log scale, USD)','ax-title'));
+  const yt=txt(0,0,'FACTUAL CORRECTNESS →','ax-title');yt.setAttribute('transform',`translate(14,${m.t+ih/2}) rotate(-90)`);s.appendChild(yt);
+  // frontier line through DSPy points
+  const dspy=rows.filter(r=>r[0]==='dspy').sort((a,b)=>a[7]-b[7]);
+  let dpath='';dspy.forEach((r,i)=>{dpath+=(i?'L':'M')+sx(r[7])+','+sy(r[3]);});
+  s.appendChild(el('path',{d:dpath,fill:'none',stroke:css('--pipe-dspy'),'stroke-width':2,'stroke-dasharray':'6 4',opacity:.7}));
+  rows.forEach(r=>{
+    const[p,gen,k,f,g,h,lat,cost]=r;
+    const grp=el('g',{class:'mk'});
+    grp.appendChild(el('circle',{cx:sx(cost),cy:sy(f),r:6,fill:css(PIPE[p].c),'fill-opacity':.9,stroke:css('--surface'),'stroke-width':2}));
+    grp.setAttribute('data-tip',`<span class="tt">${PIPE[p].name} · ${GENNAME[gen]} · k=${k}</span>Cost <b>$${cost.toFixed(4)}</b> · Factual <b>${f.toFixed(3)}</b> · ${lat.toFixed(2)}s`);
+    s.appendChild(grp);
+  });
+  mount(id,s);
+}
+
+/* ============ 6. K-ABLATION small multiples (GPT-4o) ============ */
+const KABL={ // pipe: {f:[k1,k3,k5], g:[k1,k3,k5]|null}
+  classic:{f:[0.234,0.232,0.252],g:[0.351,0.495,0.520]},
+  dspy:{f:[0.359,0.308,0.337],g:[0.639,0.787,0.816]},
+  graph:{f:[0.234,0.284,0.204],g:[0.469,0.583,0.538]},
+};
+function kabl(id){
+  const order=['classic','graph','dspy'];
+  const W=760,H=250,cols=order.length,gap=22;
+  const cw=(W-gap*(cols-1))/cols;
+  const m={l:30,r:12,t:26,b:34};
+  const s=svg(W,H);
+  const ks=[1,3,5];
+  const ymin=0.1,ymax=0.85;
+  order.forEach((p,ci)=>{
+    const ox=ci*(cw+gap);
+    const iw=cw-m.l-m.r, ih=H-m.t-m.b;
+    const sx=idx=>ox+m.l+idx/(ks.length-1)*iw;
+    const sy=v=>m.t+ih-(v-ymin)/(ymax-ymin)*ih;
+    // title
+    const tt=txt(ox+cw/2,16,PIPE[p].name,'tick');tt.setAttribute('fill',css(PIPE[p].c));tt.setAttribute('font-weight','700');s.appendChild(tt);
+    // gridlines
+    [0.2,0.4,0.6,0.8].forEach(gy=>{s.appendChild(el('line',{x1:ox+m.l,y1:sy(gy),x2:ox+m.l+iw,y2:sy(gy),class:'gridline'}));if(ci===0)s.appendChild(txt(ox+m.l-6,sy(gy)+3,gy.toFixed(1),'tick','end'));});
+    ks.forEach((k,idx)=>s.appendChild(txt(sx(idx),H-16,'k='+k,'tick')));
+    const d=KABL[p];
+    const gc=css('--grounding'),fc=css('--factual');
+    // grounding dashed
+    let gp='';d.g.forEach((v,idx)=>gp+=(idx?'L':'M')+sx(idx)+','+sy(v));
+    s.appendChild(el('path',{d:gp,fill:'none',stroke:gc,'stroke-width':2.4,'stroke-dasharray':'5 4','stroke-linejoin':'round','stroke-linecap':'round'}));
+    // factual solid
+    let fp='';d.f.forEach((v,idx)=>fp+=(idx?'L':'M')+sx(idx)+','+sy(v));
+    s.appendChild(el('path',{d:fp,fill:'none',stroke:fc,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    // dots + tips
+    d.g.forEach((v,idx)=>{const c=el('circle',{cx:sx(idx),cy:sy(v),r:4.5,fill:gc,stroke:css('--surface'),'stroke-width':2,class:'mk'});c.setAttribute('data-tip',`<span class="tt">${PIPE[p].name} · k=${ks[idx]}</span>Grounding <b>${v.toFixed(3)}</b>`);s.appendChild(c);});
+    d.f.forEach((v,idx)=>{const c=el('circle',{cx:sx(idx),cy:sy(v),r:4.5,fill:fc,stroke:css('--surface'),'stroke-width':2,class:'mk'});c.setAttribute('data-tip',`<span class="tt">${PIPE[p].name} · k=${ks[idx]}</span>Factual <b>${v.toFixed(3)}</b>`);s.appendChild(c);});
+  });
+  mount(id,s);
+}
+
+/* ============ 7. BENCH composition bars ============ */
+function benchBars(id){
+  const data=[['English',55,'--grounding'],['Macedonian',25,'--factual'],
+    ['Easy',12,'--pipe-zero'],['Medium',36,'--pipe-classic'],['Hard',32,'--pipe-dspy']];
+  const groups=[['Language',[0,1]],['Difficulty',[2,3,4]]];
+  const W=520,H=250,m={l:96,r:30,t:10,b:20};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const max=60, sx=v=>m.l+v/max*iw;
+  const s=svg(W,H);
+  let y=m.t+6;const bh=22,gap=10;
+  data.forEach((r,i)=>{
+    const[nm,v,cv]=r;
+    s.appendChild(txt(m.l-12,y+bh-6,nm,'tick','end'));
+    const g=el('g',{class:'mk'});
+    g.appendChild(roundBar(m.l,y,sx(v)-m.l,bh,css(cv)));
+    g.appendChild(txt(sx(v)+7,y+bh-6,v,'tick','start'));
+    g.setAttribute('data-tip',`<span class="tt">${nm}</span><b>${v}</b> of 80 items`);
+    s.appendChild(g);
+    y+=bh+gap;
+    if(i===1)y+=6;
+  });
+  mount(id,s);
+}
+
+/* ============ 8. DIFFICULTY grouped bars (factual) ============ */
+const DIFF=[ // pipe, easy, med, hard
+ ['zero',0.122,0.159,0.020],['classic',0.165,0.235,0.061],['graph',0.159,0.218,0.084],['dspy',0.353,0.338,0.021]
+];
+const DIFFCOL={Easy:'--good',Medium:'--warn',Hard:'--crit'};
+function diffBars(id){
+  const W=520,H=300,m={l:96,r:24,t:10,b:36};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const max=0.4, sx=v=>m.l+v/max*iw;
+  const rows=DIFF.length, bandH=ih/rows;
+  const s=svg(W,H);
+  for(let gx=0;gx<=0.4;gx+=0.1){s.appendChild(el('line',{x1:sx(gx),y1:m.t,x2:sx(gx),y2:m.t+ih,class:'gridline'}));s.appendChild(txt(sx(gx),m.t+ih+16,gx.toFixed(1),'tick'));}
+  s.appendChild(el('line',{x1:m.l,y1:m.t,x2:m.l,y2:m.t+ih,class:'axisline'}));
+  const cats=['Easy','Medium','Hard'];
+  DIFF.forEach((r,i)=>{
+    const[p,...vals]=r;
+    const yTop=m.t+i*bandH+6;
+    s.appendChild(txt(m.l-12,yTop+bandH/2-2,PIPE[p].name,'tick','end'));
+    const bh=Math.min(13,(bandH-16)/3);
+    vals.forEach((v,j)=>{
+      const y=yTop+j*(bh+2);
+      const g=el('g',{class:'mk'});
+      g.appendChild(roundBar(m.l,y,sx(v)-m.l,bh,css(DIFFCOL[cats[j]])));
+      g.setAttribute('data-tip',`<span class="tt">${PIPE[p].name} · ${cats[j]}</span>Factual correctness <b>${v.toFixed(3)}</b>`);
+      s.appendChild(g);
+    });
+  });
+  mount(id,s);
+  // legend
+  const lg=document.getElementById('diff-legend');if(lg){lg.innerHTML='';cats.forEach(c=>{const sp=document.createElement('span');sp.className='item';sp.innerHTML=`<span class="swatch" style="background:${css(DIFFCOL[c])}"></span>${c}`;lg.appendChild(sp);});}
+}
+
+/* ============ PIPELINE EXPLORER ============ */
+const STAGES={
+  q:{ic:'❓',nm:'Question',ds:'user asks'},
+  ret:{ic:'🔎',nm:'Retrieve top-k',ds:'vector search finds matching chunks'},
+  exp:{ic:'🕸️',nm:'Graph expand',ds:'pull in neighbour chunks'},
+  sig:{ic:'⚙️',nm:'DSPy signature',ds:'structured context→question→answer'},
+  gen:{ic:'🤖',nm:'Generator LLM',ds:'writes the answer'},
+  ans:{ic:'💬',nm:'Answer',ds:'returned to user'},
+};
+const PIPEDEF={
+  zero:{stages:['q','gen','ans'],hot:['gen'],text:'<b>Zero-shot</b> — the floor baseline. No documents at all: the model answers from memory. Establishes how hard the task is without retrieval. It has no grounding score because there\'s nothing to be grounded in.'},
+  classic:{stages:['q','ret','gen','ans'],hot:['ret'],text:'<b>Classic RAG</b> — the reference pipeline. Fetch the top-k chunks, paste them into a prompt template, let the model answer. Everything else is measured relative to this.'},
+  graph:{stages:['q','ret','exp','gen','ans'],hot:['exp'],text:'<b>GraphRAG</b> — Classic RAG plus one extra step: follow a pre-built graph to add each retrieved chunk\'s neighbours (same page, or very similar). More context in… but the study finds it mainly boosts <em>grounding</em>, not correctness.'},
+  dspy:{stages:['q','ret','sig','gen','ans'],hot:['sig'],text:'<b>DSPy RAG</b> — same retrieval, but the hand-written prompt is replaced by a compiled, structured signature (<span class="mono">context, question → answer</span>). This is the only pipeline that lifts both grounding AND correctness — and it\'s cheaper and faster.'},
+};
+function renderPipe(p){
+  const def=PIPEDEF[p];
+  const flow=document.getElementById('flow');flow.innerHTML='';
+  const all=['q','ret','exp','sig','gen','ans'];
+  const shown=def.stages;
+  shown.forEach((sk,i)=>{
+    const st=STAGES[sk];
+    const d=document.createElement('div');
+    d.className='stage'+(def.hot.includes(sk)?' hot':'');
+    d.innerHTML=`<div class="ic">${st.ic}</div><div class="nm">${st.nm}</div><div class="ds">${st.ds}</div>`;
+    flow.appendChild(d);
+    if(i<shown.length-1){const a=document.createElement('div');a.className='arrow';a.textContent='→';flow.appendChild(a);}
+  });
+  document.getElementById('pipeexplain').innerHTML=def.text;
+  document.querySelectorAll('#pipetabs .tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.p===p)));
+}
+document.querySelectorAll('#pipetabs .tab').forEach(t=>{
+  t.addEventListener('click',()=>renderPipe(t.dataset.p));
+});
+
+/* ============ QUADRANT ============ */
+function quad(id){
+  const W=520,H=380,m=40,cell=(W-2*m)/2;
+  const s=svg(W,H);
+  const cells=[
+    {x:0,y:0,fill:'--grounding',t:'Ungrounded but correct',d:'Right answer, but you can\'t trace it to a source — “hearsay.” Rare in RAG.',op:.12},
+    {x:1,y:0,fill:'--good',t:'Grounded AND correct',d:'The goal. Sourced and true. Only DSPy reliably lands here.',op:.2},
+    {x:0,y:1,fill:'--pipe-zero',t:'Ungrounded & wrong',d:'The obvious failure — no source, not true. At least it looks unreliable.',op:.12},
+    {x:1,y:1,fill:'--crit',t:'Grounded but WRONG',d:'The trap. Looks sourced, sounds confident, but it\'s false. Grounding-only scoring calls this a success. This is failure mode M4.',op:.22},
+  ];
+  const gx=m,gy=m,gw=cell*2,gh=cell*2;
+  cells.forEach(c=>{
+    const x=gx+c.x*cell,y=gy+c.y*cell;
+    const g=el('g',{class:'qcell'});
+    g.appendChild(el('rect',{x:x+2,y:y+2,width:cell-4,height:cell-4,rx:10,fill:css(c.fill),'fill-opacity':c.op,stroke:css(c.fill),'stroke-opacity':.5,'stroke-width':1.4}));
+    // title
+    const words=c.t.split(' ');
+    const t1=txt(x+cell/2,y+cell/2-6,c.t,'qlabel');t1.setAttribute('font-size','14');t1.setAttribute('fill',css('--ink'));g.appendChild(t1);
+    g.setAttribute('data-tip',`<span class="tt">${c.t}</span>${c.d}`);
+    s.appendChild(g);
+  });
+  // axes labels
+  s.appendChild(txt(gx+cell,gy+gh+24,'GROUNDING  →','ax-title'));
+  s.appendChild(el('line',{x1:gx,y1:gy+gh+8,x2:gx+gw,y2:gy+gh+8,stroke:css('--grounding'),'stroke-width':2,'marker-end':'none'}));
+  const yl=txt(0,0,'CORRECTNESS  →','ax-title');yl.setAttribute('transform',`translate(${gx-14},${gy+cell}) rotate(-90)`);s.appendChild(yl);
+  s.appendChild(el('line',{x1:gx-8,y1:gy+gh,x2:gx-8,y2:gy,stroke:css('--factual'),'stroke-width':2}));
+  mount(id,s);
+}
+
+/* ============ DRAW ALL ============ */
+function drawAll(){
+  planeChart('hero-plane',{compact:true});
+  planeChart('plane-full',{});
+  pipeLegend('plane-legend',['classic','graph','dspy']);
+  pipeLegend('pareto-legend',['classic','graph','dspy']);
+  scorecard('scorecard');
+  illusion('illusion');
+  judges('judges');
+  pareto('pareto');
+  kabl('kabl');
+  benchBars('bench-bars');
+  diffBars('diffbars');
+  quad('quad');
+}
+renderPipe('graph');
+drawAll();
+window.addEventListener('resize',()=>{clearTimeout(window._rt);window._rt=setTimeout(drawAll,180);});
+
+/* ============ SCROLLSPY ============ */
+const secs=[...document.querySelectorAll('section.band, #idea')];
+const navA=[...document.querySelectorAll('#nav a')];
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    const id=e.target.id;
+    navA.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+  }});
+},{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section.band').forEach(s=>io.observe(s));
+</script>
